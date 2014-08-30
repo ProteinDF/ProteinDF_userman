@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>4. クイックスタートガイド &mdash; ProteinDF User&#39;s Manual 2014.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2014.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="ProteinDF User&#39;s Manual 2014.0 ドキュメント" href="index.html" />
+    <link rel="next" title="5. 入力ファイル" href="input.html" />
+    <link rel="prev" title="3. インストール" href="installation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="input.html" title="5. 入力ファイル"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="3. インストール"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>4. クイックスタートガイド<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>ここではアミノ酸(グリシン)の一点計算を1プロセスで計算します。</p>
+<span class="target" id="index-0"></span><span class="target" id="index-1"></span><div class="section" id="index-2">
+<span id="id2"></span><h2>4.1. 計算用ディレクトリの用意<a class="headerlink" href="#index-2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ProteinDFでは行列・ベクトルなどのサイズ・数ともに大きな中間ファイルを
+ディスクに書き込みます。
+ProteinDFの実行に際し、あらかじめ計算に使用するディレクトリを作成します。
+作成すべきディレクトリは</p>
+<ul class="simple">
+<li>fl_Input</li>
+<li>fl_Table</li>
+<li>fl_Work</li>
+</ul>
+<p>の3つです。</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">ディスクの書き込みに失敗すると、プログラムが異常終了することがあります。
+特にMPI並列計算を行う場合は、すべてのノードから書き込みができることを確認してください。</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">${PDF_HOME}/bin/pdfsetup を実行しても同様のことが行えます。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>4.2. 入力ファイルの準備<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p id="index-3">以下の内容のテキストファイルを作成し、
+<tt class="docutils literal"><span class="pre">fl_Userinput</span></tt>
+というファイル名で保存します。</p>
+<div class="highlight-text"><div class="highlight"><pre>&gt;&gt;&gt;&gt;MAIN
+      step-control    = [create integral guess scf]
+      cut-value       = 1.0e-10
+      scf-start-guess = harris
+      max-iteration   = 100
+      method  = nsp
+      method/nsp/electron-number      = 40
+      method/nsp/occlevel     = [ 1 - 20 ]
+      orbital-independence-threshold  = 0.007
+      convergence/type        = density
+      convergence/threshold   = 1e-4
+      convergence/threshold-energy    = 1e-5
+      scf-acceleration        = damping
+      scf-acceleration/damping/damping-factor = 0.65
+      xc-potential    = b3lyp
+      scf-acceleration/damping/damping-type = density_matrix
+
+&gt;&gt;&gt;&gt;MOLECULE
+      geometry/cartesian/unit = angstrom
+      geometry/cartesian/input        = {
+              N        -1.888000        0.035000       -0.211000
+              H        -1.766000        0.945000        0.189000
+              H        -1.817000        0.099000       -1.205000
+              C        -0.758000       -0.730000        0.287000
+              H        -0.893000       -0.915000        1.372000
+              H        -0.720000       -1.725000       -0.200000
+              C         0.529000        0.065000        0.064000
+              O         0.520000        1.294000        0.114000
+              O         1.742000       -0.451000       -0.186000
+              H         1.692000       -1.400000       -0.203000
+      }end
+
+      basis-set/orbital       = {
+              H = &quot;O-HYDROGEN (41) DZVP&quot;
+              O = &quot;O-OXYGEN (621/41) by FS&quot;
+              C = &quot;O-CARBON (621/41) by FS&quot;
+              N = &quot;O-NITROGEN (621/41) by FS&quot;
+      }end
+
+      basis-set/density-auxiliary     = {
+              H = &quot;A-HYDROGEN (4,1;4,1) from deMon&quot;
+              O = &quot;A-OXYGEN (7/2;7/2) by FS&quot;
+              C = &quot;A-CARBON (7/2;7/2) by FS&quot;
+              N = &quot;A-NITROGEN (7/2;7/2) by FS&quot;
+      }end
+
+      basis-set/exchange-auxiliary    = {
+              H = &quot;A-HYDROGEN (4,1;4,1) from deMon&quot;
+              O = &quot;A-OXYGEN (7/2;7/2) by FS&quot;
+              C = &quot;A-CARBON (7/2;7/2) by FS&quot;
+              N = &quot;A-NITROGEN (7/2;7/2) by FS&quot;
+      }end
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">ProteinDFの起動オプションにより、
+入力ファイルを変更することができます。</p>
+</div>
+</div>
+<div class="section" id="proteindf">
+<h2>4.3. ProteinDFの実行<a class="headerlink" href="#proteindf" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>環境変数PDF_HOMEを適切に設定した後、
+ProteinDF(逐次版)を実行します。</p>
+<div class="highlight-bash"><div class="highlight"><pre>% <span class="k">${</span><span class="nv">PDF_HOME</span><span class="k">}</span>/bin/PDF.x
+</pre></div>
+</div>
+<p>正常に終了した場合は、コマンドプロンプトに戻ります。</p>
+</div>
+<div class="section" id="id4">
+<h2>4.4. 結果の表示<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>計算結果はファイルに出力されます。
+以下に例を示します。</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">出力ファイルの場所は、ProteinDFの起動オプションにより変更できます。</p>
+</div>
+<p>はじめにProteinDFのバージョン、ならびに並列数(MPIプロセス数、OpenMPスレッド数)が
+表示されます。
+意図した通りに実行されているか確認してください。</p>
+<div class="highlight-none"><div class="highlight"><pre>[0:2012/**/07 17:17:02:INFO] **************************************
+[0:2012/**/07 17:17:02:INFO] ProteinDF version 20xx.x:xxxx (serial)
+[0:2012/**/07 17:17:02:INFO]
+[0:2012/**/07 17:17:02:INFO]  OpenMP threads: 12
+[0:2012/**/07 17:17:02:INFO]
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">step_control</span></tt> に記載されている手順に従い、計算が実行されます。
+ログの左側に出力日時が記載されます。</p>
+<div class="highlight-none"><div class="highlight"><pre>===============================================
+ &gt;&gt;&gt;&gt; INTEGRAL
+===============================================
+ &gt;&gt;&gt;&gt; Hpq
+
+ ...
+
+===============================================
+ &gt;&gt;&gt;&gt; GUESS
+===============================================
+
+ ...
+
+===============================================
+ &gt;&gt;&gt;&gt; SCF
+===============================================
+</pre></div>
+</div>
+<p>エネルギー情報は <tt class="docutils literal"><span class="pre">Total</span> <span class="pre">Energy</span></tt> ブロックに出力されます。</p>
+<div class="highlight-none"><div class="highlight"><pre>------------------------------------------------
+ &gt;&gt;&gt;&gt; Total Energy
+------------------------------------------------
+ Ts+Vn          =        -745.7264230071891689
+ E_J[Rho, Rho~] =         629.4907739256434525
+ E_J[Rho~,Rho~] =        -311.1519936178789294
+ E_xc(pure)     =         -27.8222685895087842
+ E_K            =          -6.8830892822011522
+ E_nuclei       =         179.8930288412503558
+ TE             =        -282.1999717298841688
+------------------------------------------------
+</pre></div>
+</div>
+<p>その他、計算サイズ、カットオフ情報が随時出力されます。</p>
+<p>計算が正常に終了すると、CPU時間と経過時間が出力されます。</p>
+<div class="highlight-none"><div class="highlight"><pre>************************************************
+ ProteinDF successful completion
+ CPU_TIME:         3454 sec
+ ELAPS_TIME:        542 sec
+************************************************
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">4. クイックスタートガイド</a><ul>
+<li><a class="reference internal" href="#index-2">4.1. 計算用ディレクトリの用意</a></li>
+<li><a class="reference internal" href="#id3">4.2. 入力ファイルの準備</a></li>
+<li><a class="reference internal" href="#proteindf">4.3. ProteinDFの実行</a></li>
+<li><a class="reference internal" href="#id4">4.4. 結果の表示</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="installation.html"
+                        title="前の章へ">3. インストール</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="input.html"
+                        title="次の章へ">5. 入力ファイル</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/quick_start_guide.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>クイック検索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="input.html" title="5. 入力ファイル"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="3. インストール"
+             >前へ</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Toshiyuki HIRANO.
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2 で生成しました。
+    </div>
+  </body>
+</html>
