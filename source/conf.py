@@ -282,3 +282,9 @@ blockdiag_antialias = True
 # Mac OSXでOsakaフォントを使う場合
 blockdiag_fontpath = '/Library/Fonts/Osaka.ttf'
 
+# sphinx-intl
+locale_dirs = ['locale/']
+gettext_compact = False
+
+
+
