@@ -295,7 +295,7 @@ msgstr "basis-set/gridfree"
 
 #: ../../source/input.rst:311
 msgid "グリッドフリー法による交換相関項の計算で使用する補助基底関数を指定します。 使用するためには ``gridfree/dedicated_basis`` を有効( ``yes`` )にする必要があります。"
-msgstr ""
+msgstr "Specifies the auxiliary basis sets used for grid-free method."
 
 #: ../../source/input.rst:11
 msgid "fl_Userinput"

@@ -184,7 +184,7 @@ msgstr "Uses MS for ``parallel_processing_type``"
 
 #: ../../source/exec.rst:135
 msgid "マスター-スレーブ法では、マスタープロセスはタスクの分散に専念し、演算を行いません。 負荷が均等に分散できるので、プロセス数が多い場合に有効です。"
-msgstr ""
+msgstr "In the master-slave method, the master process dedicates distribution of tasks. This algorithm is effective when the number of process is large."
 
 #: ../../source/exec.rst:153
 msgid "大域行列を各MPIプロセスに分割して保持します。"

@@ -49,7 +49,7 @@ msgstr "Specify electron count by using the keyword ``rks/electrons``. In the ca
 
 #: ../../source/ground_state_calc.rst:38
 msgid "と記述します。"
-msgstr ""
+msgstr "."
 
 #: ../../source/ground_state_calc.rst:42
 msgid "閉殻計算の場合、 ``rks/electrons`` の値は必ず偶数になります。"

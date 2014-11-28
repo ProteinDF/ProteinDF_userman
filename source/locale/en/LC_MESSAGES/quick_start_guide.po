@@ -41,7 +41,7 @@ msgstr "fl_Work"
 
 #: ../../source/quick_start_guide.rst:23
 msgid "の3つです。"
-msgstr ""
+msgstr "."
 
 #: ../../source/quick_start_guide.rst:28
 msgid "ディスクの書き込みに失敗すると、プログラムが異常終了することがあります。 特にMPI並列計算を行う場合は、すべてのノードから書き込みができることを確認してください。"
