@@ -1,0 +1,1000 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>10. Fully Automatic Calculation Program QCLO &mdash; ProteinDF User&#39;s Manual 2014.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2014.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ProteinDF User&#39;s Manual 2014.0 documentation" href="index.html" />
+    <link rel="next" title="11. Appendix" href="appendix.html" />
+    <link rel="prev" title="9. Analysis of the ProteinDF Calculation Results" href="analysis.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="appendix.html" title="11. Appendix"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="analysis.html" title="9. Analysis of the ProteinDF Calculation Results"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="qclo">
+<h1>10. Fully Automatic Calculation Program QCLO<a class="headerlink" href="#qclo" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>10.1. Introduction<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>All-electron DFT calculation of super large-scale proteins is achieved using the DFT MO calculation program ProteinDF, and the QCLO (Quasi-Canonical Localized Orbital) or RMO (Regional Molecular Orbital) semi-automatic calculation method program. The QCLO and RMO programs generate the initial guess for ProteinDF execution. Once the QCLO or RMO program is executed, ProteinDF retrieves the generated initial guess, and performs all-electron calculations following user-specified scenarios.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The current QCLO program will not be updated in the future. When a new fully automatic calculation program is completely developed, the descriptions in this manual may become outdated.</p>
+</div>
+<div class="section" id="id2">
+<h3>10.1.1. Semi-automatic calculation program QCLO<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>The automatic all-electron calculation program QCLO assists the calculation convergence process using the QCLO or RMO method. QCLOs or RMOs are orbitals localized in a certain unit of amino acid residue but relatively close to its canonical orbital. Extracting and combing these QCLOs or RMOs allows us to generate a good initial guess for calculating the MO of a peptide chain. From the calculation result, we obtain yet another QCLO or RMO, and again use the orbital as the initial guess for a larger peptide chain calculation. Repeating this process and gradually extending the length of the peptide chain, we achieve all-electron calculation of proteins. We call this method “Auto-convergence method for all-electron calculation of proteins”. This method allows us to easily perform accurate quantum chemical calculations on proteins with a wide range of functionalities.</p>
+</div>
+<div class="section" id="id3">
+<h3>10.1.2. Convergence process for all-electron calculation of proteins<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Generally, it is difficult to obtain the electronic states of large molecules, such as proteins or peptide chains, using only a single-point calculation without any reference. We therefore first divide proteins into smaller fragments such as amino acid residues, and start calculations from the fragments. Using the results, we then further calculate larger peptide chains. The <a href="#qclosteps">Fig.  1</a> shows the method overview:</p>
+<div class="figure align-center" id="qclosteps">
+<a class="reference internal image-reference" href="_images/QCLO_steps.png"><img alt="QCLO_steps.png" src="_images/QCLO_steps.png" style="width: 8cm;" /></a>
+<p class="caption">Fig. 1: Convergence process for all-electron calculation of proteins</p>
+</div>
+<p>Step&nbsp;1 divides a protein or peptide chain into single amino acid residues and performs calculation on each residue. Step&nbsp;2 calculates a unit of three residues using the results of Step 1. From Step&nbsp;2 onwards, residues are extracted with overlaps, as shown in Fig. 10.1. Using the results in Step&nbsp;2 as the initial guess, Step&nbsp;3 calculates peptide chains made of several residues. In this step, the initial guess is generated by combing the results of the first two residues of the peptide chain, those of all middle residues among the three-residue units, and those of the last two residues. Repeating this procedure and gradually extending the length of peptide chains, we finally obtain the total protein energy. We call the molecules generated during this process <tt class="docutils literal"><span class="pre">frame</span> <span class="pre">molecules</span></tt>. Step 1 uses Harris&#8217;s guess for computation, and Step&nbsp;2 generates the initial guess by combining electron densities derived in Step&nbsp;1. In this approach, the more frame molecules are combined, the more errors accumulate. Furthermore, relatively large errors may occur at combing sites, although residues are extracted with overlaps. These errors may cause a critical problem especially during large molecule calculation. Step&nbsp;3 onwards, therefore, uses a different method based on localized orbitals to generate the initial guess.</p>
+</div>
+<div class="section" id="id4">
+<h3>10.1.3. Canonical orbitals and localized orbitals<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>The expression of molecular orbitals allows a degree of freedom, and can be transformed into many forms using unitary transformations. The following two expressions are typically used: canonical orbitals and localized orbitals. Localized orbitals are the orbitals obtained based on the assumption of their maximum concentration within a minimum space. To judge localization, the criteria proposed by Edmiston and Rüdenberg, as well as those by Foster and Boys, are well known. There are other methods, such as the Population method of Pipek and Mezey, and the RMO method of Gu. In any method, the more orbitals are localized into a specific region, the greater the index value. Chemists find intuitive the Edmiston-Rüdenberg, Population, and RMO methods, since in localized orbitals obtained by these method indices, core electrons are localized around a nucleus, bonding valence electrons are around the bond, and non-bonding valence electrons are found as lone-pair orbitals</p>
+<p>ProteinDF employs the Population method and RMO method, which allow faster computation than the Edmiston-Rüdenberg method. To generate a good guess for peptide chain computation, from Step 3 onwards we use a method based on localized orbitals, as mentioned above. When MOs are expressed in a localized state, they can be separated into individual orbitals with chemically reasonable approximation. Once orbitals are localized through an intricate procedure, they can be separated and combined safely and freely, and an initial guess of good accuracy can be obtained. We named this orbital <tt class="docutils literal"><span class="pre">Quasi-Canonical</span> <span class="pre">Localized</span> <span class="pre">Orbital</span> <span class="pre">(QCLO)</span></tt> after its properties. The RMO method of localizing orbitals into a specific region basically has a similar handling procedure, although based on a different calculation system. In general, the larger the molecular size, the faster the computation of the RMO method compared with that of the QCLO. As shown in <a href="#qclofragment">Fig.  2</a>, These methods generate initial guesses by 1) dividing a peptide chain into fragments, such as amino residue side chains and peptide bonds; 2) obtaining an orbital which spreads only over each fragment and is also similar to the fragment&#8217;s canonical orbital; and 3) combining all the fragment orbitals to obtain an initial guess for calculating the MO of the entire peptide chain. For orbital localization, we start calculation from the frame molecules with three or more residues, in order to include the effect of the target molecule surroundings, and to express peptide bonds in a strict manner. Note that when calculating frame molecules of peptide chains, the user is required to group them into main chains and side chains. This grouping allows the system to automatically divide the target molecule into fragments.</p>
+<div class="figure align-center" id="qclofragment">
+<a class="reference internal image-reference" href="_images/QCLO_fragment.png"><img alt="QCLO_fragment.png" src="_images/QCLO_fragment.png" style="width: 8cm;" /></a>
+<p class="caption">Fig. 2: Frame molecule THR-VAL-GLU and the fragments</p>
+</div>
+<p>The procedure for generating QCLOs and RMOs is as follows:</p>
+<ul class="simple">
+<li><p class="first">Step 1: Molecular orbital calculations for each frame molecule</p>
+</li>
+</ul>
+<p>Perform the molecular orbital calculation of each frame molecule. For the structure of the frame molecule, use the corresponding part of the original peptide chain. Add H and OH to the N-terminal and C-terminal at the split points, respectively. The orbital obtained here is a canonical orbital which spreads over the frame molecule.</p>
+<ul class="simple">
+<li><p class="first">Step 2: Localized orbital calculations for each frame molecule</p>
+</li>
+</ul>
+<p>Transform the molecular orbitals obtained in Step 1 to those localized on individual chemical bonds or lone pairs. The calculation procedure varies between QCLOs and RMOs.</p>
+<ul class="simple">
+<li><p class="first">Step 3: QCLO calculations for each fragment</p>
+</li>
+</ul>
+<p>From the orbitals obtained in Step 2, pick up an orbital which belongs to each fragment. Using the coefficient matrix, change the Kohn-Sham matrix (Fock matrices for ab initio HF) of the frame molecule from atomic orbital basis to localized orbital basis. By solving the eigenvalue equation of the Kohn-Sham matrix of the fragment, we can obtain an orbital, which is localized at the fragment but also spreads over the entire fragment. Repeat Steps 1 to 3 for all the frame molecules and fragments to obtain their QCLOs or RMOs. Then Step 4 generates the initial guess.</p>
+<ul class="simple">
+<li><p class="first">Step 4: Combing localized orbitals</p>
+</li>
+</ul>
+<p>The QCLOs and RMOs obtained in Step 3 are calculated based on the unit of the frame molecule. It is therefore necessary to remove the orbital components of H and OH, which were added in Step 1, since they do not exist in the actual peptides. Then combine QCLOs or RMOs of all fragments to generate an orbital set of the entire peptide chain. Next, apply a Löwdin orthogonalization to the orbital set. Here, we can obtain orbitals almost identical to those in Step 3, since the Löwdin method achieves orthogonalization with the original state hardly changed. Through these processes, we can thus obtain an orthogonalized LCAO matrix over the entire peptide chain.</p>
+<p>We call the method consisting of Steps 1 to 4 the convergence process for all-electron calculation of proteins.</p>
+<div class="section" id="id5">
+<h4>10.1.3.1. Automatic calculation function based on the QCLO method<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>This function is based on the QCLO method which eliminates redundant calculations. This function generates the initial data (LCAO) for ProteinDF, using each fragment&#8217;s QCLO result obtained in ProteinDF.</p>
+<p>ProteinDF solves the Roothaan equation <img class="math" src="_images/math/55d49346473fd88117df275e2700a8f7a0f6225c.png" alt="FC=SC\epsilon"/> by transforming it to an orthogonal basis using the matrix <img class="math" src="_images/math/ca9ae3cef1bd3b9e776c1ff51920e99a8d320e8e.png" alt="X=U*s^{-1/2}"/>.</p>
+<ol class="arabic simple">
+<li><p class="first">Transforming the atomic orbital (AO) based KS matrix to the orthogonal basis KS matrix.</p>
+</li>
+</ol>
+<div class="math">
+<p><img src="_images/math/9fbb93bb24f56f2751a0b7f6430d8f476868c01e.png" alt="F'=X^{t}FXC"/></p>
+</div><ol class="arabic simple" start="2">
+<li><p class="first">Performing level shift to the KS matrix</p>
+</li>
+</ol>
+<div class="math">
+<p><img src="_images/math/7ca3cf366612ace801b636fdd073f814cbd38713.png" alt="F'=F'+C'(C'*\beta)^{\dagger}"/></p>
+</div><ol class="arabic simple" start="3">
+<li><p class="first">Diagonalizing the KS matrix to obtain the coefficient matrix in orthogonal basis</p>
+</li>
+</ol>
+<div class="math">
+<p><img src="_images/math/7ead4629bedd7e587886cc55d0a6aea101bcd671.png" alt="F'C'=C'\epsilon'"/></p>
+</div><ol class="arabic simple" start="4">
+<li><p class="first">Transforming the coefficient matrix to the AO basis</p>
+</li>
+</ol>
+<div class="math">
+<p><img src="_images/math/bba74d34be204fa41b421f72567ea66f44d48efd.png" alt="C=XC'"/></p>
+</div><p>The following generally describes the QCLO method calculation procedure:</p>
+<ul class="simple">
+<li><p class="first">1st step:</p>
+</li>
+</ul>
+<p>Perform normal SCF MO calculations on all amino acids. Generate the initial guess from the atomic electron density.</p>
+<ul class="simple">
+<li><p class="first">2nd step:</p>
+</li>
+</ul>
+<p>Obtain initial guess by extracting and combining the monomer electron densities obtained in the 1st step. Pick up the localized orbitals (LO) and assign them to fragments. The QCLOs of the fragments can be obtained by solving the following eigen equations:</p>
+<div class="math">
+<p><img src="_images/math/dcaec9b903ea64e346690d3bace13d92618085c7.png" alt="F'=C_{LO}^{t}FC_{LO}
+
+F'C'=C'\epsilon'"/></p>
+</div><div class="line-block">
+<div class="line"><img class="math" src="_images/math/183421431fcc0a42e22f825a33dcc3c51607fa6e.png" alt="F"/> represents the Fock or Kohn-Sham matrix of the frame molecule,</div>
+<div class="line"><img class="math" src="_images/math/d0f3c6d1fc5643c68872616022aab6615f9d4f1d.png" alt="C_LO"/>  the coefficient matrix of the LO assigned to the fragment</div>
+<div class="line"><img class="math" src="_images/math/fd5a59bc0d5b68558c9a96f7b71890faf780c7d5.png" alt="F'"/> the Fock or Kohn-Sham matrix of the fragment (in LO basis)</div>
+</div>
+<ul class="simple">
+<li><p class="first">3rd step onwards:</p>
+</li>
+</ul>
+<p>Generate an initial guess by combining the QCLOs in the 2nd step. Then apply the Löwdin&#8217;s orthogonalization to the combined QCLOs. The transformed QCLO is hardly changed from the original orbital. Obtain the initial guess for each fragment from the orthogonalized QCLO. We can obtain the Fock or Kohn-Sham matrix of the fragment by the following equation:</p>
+<div class="math">
+<p><img src="_images/math/f08631e4137174d97fe712b6ac82146b6dea0248.png" alt="F'=C_{QCLO}^{t}FC_{QCLO}"/></p>
+</div><div class="line-block">
+<div class="line"><img class="math" src="_images/math/fa91d75302b4d2079ab093e331e958744461aa37.png" alt="C_{QCLO}"/> denotes the coefficient matrix of QCLO (in AO basis).</div>
+</div>
+<p>Note that the solution of this equation expresses the QCLO of the 3rd step within the space defined by the QCLO of the previous step. <a href="#qcloflow">Fig.  3</a> shows the processing flow of the QCLO method:</p>
+<div class="figure align-center" id="qcloflow">
+<img alt="QCLO_flow.png" src="_images/QCLO_flow.png" />
+<p class="caption">Fig. 3: The QCLO method processing flow</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>10.2. Execution procedure<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>10.2.1. Preparing input data for the QCLO method program<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>Specify the input keywords for the semi-automatic calculation program in the input file <tt class="docutils literal"><span class="pre">QcStep</span></tt>. The following shows an example of the <tt class="docutils literal"><span class="pre">QcStep</span></tt> file:</p>
+<div class="highlight-none"><div class="highlight"><pre>// Qclo input file
+&gt;&gt;&gt;&gt;CONTROL
+      step-selection = { 1 2 3 4 }
+      filename = 1hrc_amber.nowat.pdb
+&gt;&gt;&gt;&gt;STEP1
+      execution = {creation integral guess pdf }
+      sequential-frames = {
+              18-24|1
+      }
+&gt;&gt;&gt;&gt;STEP2
+      execution = {creation integral guessrho pdf lo pickup}
+
+      sequential-frames = {
+              18-24|3
+      }
+&gt;&gt;&gt;&gt;STEP3
+      execution = {creation integral guessqclo pdf lo pickup}
+
+      sequential-frames = {
+              18-22
+              21-24
+      }
+&gt;&gt;&gt;&gt;STEP4
+      execution = {creation integral guessqclo pdf }
+      sequential-frames = {
+              18-24
+      }
+      pdf-keywords = {
+              max-iteration = 5
+      ｝
+&gt;&gt;&gt;&gt;GLOBAL
+      pdf-keywords = {
+         scf-acceleration = damping
+         scf-acceleration/damping/damping-factor = 0.90
+      ｝
+</pre></div>
+</div>
+<p>In QcStep files, specify the keywords in a block defined with <tt class="docutils literal"><span class="pre">&gt;&gt;&gt;&gt;</span></tt>. There are three blocks: CONTROL, STEP#, and GLOBAL. The <tt class="docutils literal"><span class="pre">#</span></tt> signifies step numbers. The text beginning with // up to the line feed code is commented out</p>
+</div>
+<div class="section" id="id8">
+<h3>10.2.2. Executing the QCLO method program<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>To execute the QCLO auto-calculation method program from the command line, specify the command as follows:</p>
+<div class="highlight-bash"><div class="highlight"><pre>% <span class="nv">$PDF_HOME</span>/bin/QCLO.x
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>10.3. Keywords for the auto-calculation method program<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="control">
+<h3>10.3.1. CONTROL block<a class="headerlink" href="#control" title="Permalink to this headline">¶</a></h3>
+<p>The CONTROL block specifies the keywords regarding the auto-calculation method in general.</p>
+<div class="section" id="step-selection">
+<h4>10.3.1.1. step-selection<a class="headerlink" href="#step-selection" title="Permalink to this headline">¶</a></h4>
+<p>Controls the steps for the auto-calculation method. In the brace <tt class="docutils literal"><span class="pre">{</span> <span class="pre">}</span></tt>, the user can specify the number (#) in the STEP# block keyword described in the same file.</p>
+<div class="section" id="id10">
+<h5>10.3.1.1.1. Default<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h5>
+<blockquote>
+<div><p>Step number specified in the STEP block</p>
+</div></blockquote>
+</div>
+<div class="section" id="id11">
+<h5>10.3.1.1.2. Values<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h5>
+<blockquote>
+<div><p>{ (Step number at which to perform calculation) }</p>
+</div></blockquote>
+</div>
+<div class="section" id="id12">
+<h5>10.3.1.1.3. Example<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>step-selection = { 1 2 3 4 }
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="filename">
+<h4>10.3.1.2. filename<a class="headerlink" href="#filename" title="Permalink to this headline">¶</a></h4>
+<p>The system supports PDB files or the files compatible with the PDB format.</p>
+<div class="section" id="id13">
+<h5>10.3.1.2.1. Default<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id14">
+<h5>10.3.1.2.2. Values<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h5>
+<p>Names of PDB files or the files compatible with the PDB format</p>
+</div>
+<div class="section" id="id15">
+<h5>10.3.1.2.3. Example<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>filename = 1hrc_amber.nowat.pdb
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="step">
+<h3>10.3.2. STEP block<a class="headerlink" href="#step" title="Permalink to this headline">¶</a></h3>
+<p>STEP block specifies the keywords regarding each calculation step.</p>
+<div class="section" id="sequential-frames">
+<h4>10.3.2.1. sequential-frames<a class="headerlink" href="#sequential-frames" title="Permalink to this headline">¶</a></h4>
+<p>Defines peptide-chain frames on which to perform the calculation sequence, as in <tt class="docutils literal"><span class="pre">sequential-frames</span> <span class="pre">={</span> <span class="pre">}</span></tt>. The description format in the brace <tt class="docutils literal"><span class="pre">{</span> <span class="pre">}</span></tt> is as follows:</p>
+<ul class="simple">
+<li>$1-$2|$3</li>
+</ul>
+<p>Divides the peptide chain consisting of the residues from $1 to $2 into groups of $3 residues, allowing overlaps of two residues. The number of residues constituting the end fragment can be other than $3.</p>
+<ul class="simple">
+<li>$4</li>
+</ul>
+<p>Amino acid residue with the number $4</p>
+<ul class="simple">
+<li>$5-$6</li>
+</ul>
+<p>Peptide chain made of the residue number $5 to $6 (equivalent to <tt class="docutils literal"><span class="pre">$1-$2|$3</span></tt> above when $3 is omitted)</p>
+<div class="section" id="id16">
+<h5>10.3.2.1.1. Default<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id17">
+<h5>10.3.2.1.2. Values<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h5>
+<p>Numbers of residues which construct peptide chain frames</p>
+</div>
+<div class="section" id="id18">
+<h5>10.3.2.1.3. Example<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>sequential-frames = {
+  18-24|3
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="general-frames">
+<h4>10.3.2.2. general-frames<a class="headerlink" href="#general-frames" title="Permalink to this headline">¶</a></h4>
+<p>Defines general frame molecules on which to perform the calculation sequence, as in the following format:</p>
+<div class="highlight-none"><div class="highlight"><pre>general-frames = {
+  name : {
+    …
+  }
+}
+</pre></div>
+</div>
+<p>Any string except system-reserved names can be specified for <tt class="docutils literal"><span class="pre">name</span></tt>. In the brace <tt class="docutils literal"><span class="pre">{</span> <span class="pre">}</span></tt>, the values specified for <tt class="docutils literal"><span class="pre">sequential-frames</span></tt> keyword can be specified.</p>
+<div class="section" id="id19">
+<h5>10.3.2.2.1. Default<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id20">
+<h5>10.3.2.2.2. Example<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>general-frames = {
+  H2O : {
+             {
+             }
+        }
+  }
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="execution">
+<h4>10.3.2.3. execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h4>
+<p>Controls the executions for the current STEP#. The following strings can be specified in the brace <tt class="docutils literal"><span class="pre">{</span> <span class="pre">}</span></tt>:</p>
+<ul class="simple">
+<li>creation</li>
+</ul>
+<p>Creates work environment.</p>
+<ul class="simple">
+<li>integral</li>
+</ul>
+<p>Executes integrals on ProteinDF.</p>
+<ul class="simple">
+<li>guess</li>
+</ul>
+<p>Generates initial guess in ProteinDF.</p>
+<ul class="simple">
+<li>guessrho</li>
+</ul>
+<p>Generates initial guess with p~bonds.</p>
+<ul class="simple">
+<li>guessdensity</li>
+</ul>
+<p>Generates initial guess by combining density matrices</p>
+<ul class="simple">
+<li>guessqclo</li>
+</ul>
+<p>Generates initial guess with QCLOs (available in Step 3 onwards)</p>
+<ul class="simple">
+<li>guessfile</li>
+</ul>
+<p>Uses the initial data file specified with <tt class="docutils literal"><span class="pre">qclo-keywords</span></tt>.</p>
+<ul class="simple">
+<li>pdf</li>
+</ul>
+<p>ProteinDF calculation</p>
+<ul class="simple">
+<li>lo</li>
+</ul>
+<p>Calculation for orbital localization</p>
+<ul class="simple">
+<li>pickup</li>
+</ul>
+<p>Picks up localized orbitals to assign to fragments.</p>
+<ul class="simple">
+<li>pdfqclo</li>
+</ul>
+<p>Molecular orbital calculation with the extended QCLO method</p>
+<div class="section" id="id21">
+<h5>10.3.2.3.1. Default<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h5>
+<p>Step1: execution = {creation integral guess pdf }</p>
+<p>Step2: execution = {creation integral guessrho pdf lo pickup }</p>
+<p>Step3 onwards: execution = { creation integral guessqclo pdf lo pickup }</p>
+</div>
+<div class="section" id="id22">
+<h5>10.3.2.3.2. Values<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h5>
+<blockquote>
+<div>creation,integral, guess, guessrho, guessqclo, guessfile,  lo, pickup, pdf, pdfqclo</div></blockquote>
+</div>
+<div class="section" id="id23">
+<h5>10.3.2.3.3. Example<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>execution = { creation integral guess pdf }
+execution = { creation integral guessrho pdf lo pickup }
+execution = { creation integral guessqclo pdf lo pickup }
+</pre></div>
+</div>
+<p>The example above shows the default values of STEP1, STEP2, and STEP#(#&gt;2).</p>
+</div>
+</div>
+</div>
+<div class="section" id="global">
+<h3>10.3.3. GLOBAL block<a class="headerlink" href="#global" title="Permalink to this headline">¶</a></h3>
+<p>The keywords described in this block are reflected in all blocks. In the current system, the user can describe the following keywords <tt class="docutils literal"><span class="pre">pdf-keywords</span></tt> and <tt class="docutils literal"><span class="pre">qclo-keywords</span></tt>:</p>
+</div>
+<div class="section" id="id24">
+<h3>10.3.4. Other keywords<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="pdf-keywords">
+<h4>10.3.4.1. pdf-keywords<a class="headerlink" href="#pdf-keywords" title="Permalink to this headline">¶</a></h4>
+<p>Specifies the ProteinDF keywords. These keywords will be only valid for the ProteinDF calculations within the block where the <tt class="docutils literal"><span class="pre">pdf-keywords</span></tt> is described. Use the following format:</p>
+<div class="highlight-none"><div class="highlight"><pre>pdf-keywords = {
+  ProteinDFプログラムの入力キーワード群
+}
+</pre></div>
+</div>
+<p>These keywords can be described anywhere in the auto-calculation method input file. The priority and effective range for the keywords are as follows:</p>
+<div class="highlight-none"><div class="highlight"><pre>{}内 &gt; {}外 &gt; STEP#ブロック &gt; GLOBALブロック &gt; CONTROLブロック
+</pre></div>
+</div>
+<div class="section" id="id25">
+<h5>10.3.4.1.1. Default<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id26">
+<h5>10.3.4.1.2. Values<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h5>
+<p>ProteinDF program input keyword</p>
+</div>
+<div class="section" id="id27">
+<h5>10.3.4.1.3. Example<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>pdf-keywords = {
+  max-iteration = 5
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="qclo-keywords">
+<h4>10.3.4.2. qclo-keywords<a class="headerlink" href="#qclo-keywords" title="Permalink to this headline">¶</a></h4>
+<p>Specifies the keywords for the QCLO auto-calculation method program. These keywords will be only valid for automatic calculations within the block where the <tt class="docutils literal"><span class="pre">qclo-keywords</span></tt> is described. Use the following format:</p>
+<div class="highlight-none"><div class="highlight"><pre>qclo-keywords = {
+  自動計算法プログラムの入力キーワード群
+}
+</pre></div>
+</div>
+<p>These keywords can be described anywhere in the auto-calculation method input file. The priority and effective range for the keywords are as follows:</p>
+<div class="highlight-none"><div class="highlight"><pre>{}内 &gt; {}外 &gt; STEP#ブロック &gt; GLOBALブロック &gt; CONTROLブロック
+</pre></div>
+</div>
+<div class="section" id="id28">
+<h5>10.3.4.2.1. Default<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id29">
+<h5>10.3.4.2.2. Values<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h5>
+<p>Keywords for the auto-calculation method program</p>
+</div>
+<div class="section" id="id30">
+<h5>10.3.4.2.3. Example<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>qclo-keywords = {
+  set_fragment_by_element
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="fragment">
+<h4>10.3.4.3. fragment<a class="headerlink" href="#fragment" title="Permalink to this headline">¶</a></h4>
+<p>Specifies fragment divisions for generating frame-molecule QCLOs in the following format:</p>
+<div class="highlight-none"><div class="highlight"><pre>fragment = {
+  フラグメント１の名前 = {
+    フラグメント１の構成要素１
+      ...
+    フラグメント１の構成要素ｍ
+  }
+  ...
+  フラグメントｎの名前 = {
+  ...
+  }
+}
+</pre></div>
+</div>
+<p>Describe the above specification in the frame molecule definitions.</p>
+<div class="section" id="id31">
+<h5>10.3.4.3.1. Default<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id32">
+<h5>10.3.4.3.2. Example<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>fragment = {
+  frag_res18 = {
+    18
+  }
+  frag_res19_21 = {
+    19-21
+  }
+  frag_res22 = {
+    22
+  }
+｝
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id33">
+<h3>10.3.5. Calculation conditions specified with <tt class="docutils literal"><span class="pre">qclo-keywords</span></tt><a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="add-ethyl">
+<h4>10.3.5.1. add_ethyl<a class="headerlink" href="#add-ethyl" title="Permalink to this headline">¶</a></h4>
+<p>Adds ethyl group to frame molecules. The coordinate of the specified residue side chain is used for the ethyl group coordinate.</p>
+<div class="section" id="id34">
+<h5>10.3.5.1.1. Default<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id35">
+<h5>10.3.5.1.2. Values<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h5>
+<p>Residue number</p>
+</div>
+<div class="section" id="id36">
+<h5>10.3.5.1.3. Example<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>add_ethyl  =  18
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="set-fragment-add-ethyl">
+<h4>10.3.5.2. set_fragment_add_ethyl<a class="headerlink" href="#set-fragment-add-ethyl" title="Permalink to this headline">¶</a></h4>
+<p>Regarding a frame molecule as a part of the specified amino acid residue, extracts the part corresponding to the side chain to generate an R side fragment.</p>
+<div class="section" id="id37">
+<h5>10.3.5.2.1. Default<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id38">
+<h5>10.3.5.2.2. Values<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h5>
+<p>Residue number</p>
+</div>
+<div class="section" id="id39">
+<h5>10.3.5.2.3. Example<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>set_fragment_add_ethyl  =  18
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="no-add-terminal">
+<h4>10.3.5.3. no_add_terminal<a class="headerlink" href="#no-add-terminal" title="Permalink to this headline">¶</a></h4>
+<p>Prohibits adding H or OH to the breaking points of peptide bonds.</p>
+<div class="section" id="id40">
+<h5>10.3.5.3.1. Default<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id41">
+<h5>10.3.5.3.2. Values<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id42">
+<h5>10.3.5.3.3. Example<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>no_add_terminal
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="set-fragment-by-element">
+<h4>10.3.5.4. set_fragment_by_element<a class="headerlink" href="#set-fragment-by-element" title="Permalink to this headline">¶</a></h4>
+<p>Creates the fragments for QCLO generation in the same way as when generating an initial guess.</p>
+<div class="section" id="id43">
+<h5>10.3.5.4.1. Default<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id44">
+<h5>10.3.5.4.2. Values<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id45">
+<h5>10.3.5.4.3. Example<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>set_fragment_by_element
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="localize-unocc-orbital">
+<h4>10.3.5.5. localize_unocc_orbital<a class="headerlink" href="#localize-unocc-orbital" title="Permalink to this headline">¶</a></h4>
+<p>Includes unoccupied orbitals in localizing process during QCLO generation.</p>
+<div class="section" id="id46">
+<h5>10.3.5.5.1. Default<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id47">
+<h5>10.3.5.5.2. Values<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id48">
+<h5>10.3.5.5.3. Example<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>localize_unocc_orbital
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pickup-unocc-orbital">
+<h4>10.3.5.6. pickup_unocc_orbital<a class="headerlink" href="#pickup-unocc-orbital" title="Permalink to this headline">¶</a></h4>
+<p>Includes unoccupied orbitals in the process assigning LOs to fragments.</p>
+<div class="section" id="id49">
+<h5>10.3.5.6.1. Default<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id50">
+<h5>10.3.5.6.2. Values<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id51">
+<h5>10.3.5.6.3. Example<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>pickup_unocc_orbital
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="guessqclo-combine-unocc-orbital">
+<h4>10.3.5.7. guessqclo_combine_unocc_orbital<a class="headerlink" href="#guessqclo-combine-unocc-orbital" title="Permalink to this headline">¶</a></h4>
+<p>Includes unoccupied orbitals when generating initial guess from QCLOs.</p>
+<div class="section" id="id52">
+<h5>10.3.5.7.1. Default<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id53">
+<h5>10.3.5.7.2. Values<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id54">
+<h5>10.3.5.7.3. Example<a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>guessqclo_combine_unocc_orbita
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="initial-guess-lcao-file">
+<h4>10.3.5.8. initial-guess-lcao-file<a class="headerlink" href="#initial-guess-lcao-file" title="Permalink to this headline">¶</a></h4>
+<p>Specifies the initial data file of LCAO expansion coefficient matrix for RKS calculations.</p>
+<div class="section" id="id55">
+<h5>10.3.5.8.1. Default<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id56">
+<h5>10.3.5.8.2. Values<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h5>
+<p>File name</p>
+</div>
+<div class="section" id="id57">
+<h5>10.3.5.8.3. Example<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>initial-guess-lcao-file  =  step3/13_19/result.guess.lcao.rks
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="initial-guess-lcao-alpha-file">
+<h4>10.3.5.9. initial-guess-lcao-alpha-file<a class="headerlink" href="#initial-guess-lcao-alpha-file" title="Permalink to this headline">¶</a></h4>
+<p>Specifies the initial data file of LCAO expansion coefficient matrix for α orbitals in UKS calculations.</p>
+<div class="section" id="id58">
+<h5>10.3.5.9.1. Default<a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id59">
+<h5>10.3.5.9.2. Values<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h5>
+<p>File name</p>
+</div>
+<div class="section" id="id60">
+<h5>10.3.5.9.3. Example<a class="headerlink" href="#id60" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>initial-guess-lcao-alpha-file  =  step3/13_19/result.guess.lcao.uks-alpha
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="initial-guess-lcao-beta-file">
+<h4>10.3.5.10. initial-guess-lcao-beta-file<a class="headerlink" href="#initial-guess-lcao-beta-file" title="Permalink to this headline">¶</a></h4>
+<p>Specifies the initial data file of LCAO expansion coefficient matrix for β orbitals in UKS calculations.</p>
+<div class="section" id="id61">
+<h5>10.3.5.10.1. Default<a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id62">
+<h5>10.3.5.10.2. Values<a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h5>
+<p>File name</p>
+</div>
+<div class="section" id="id63">
+<h5>10.3.5.10.3. Example<a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>initial-guess-lcao-beta-file  =  step3/13_19/result.guess.lcao.uks-beta
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="initial-guess-occ-file">
+<h4>10.3.5.11. initial-guess-occ-file<a class="headerlink" href="#initial-guess-occ-file" title="Permalink to this headline">¶</a></h4>
+<p>Specifies the initial data file of occupation number for RKS calculations.</p>
+<div class="section" id="id64">
+<h5>10.3.5.11.1. Default<a class="headerlink" href="#id64" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id65">
+<h5>10.3.5.11.2. Values<a class="headerlink" href="#id65" title="Permalink to this headline">¶</a></h5>
+<p>File name</p>
+</div>
+<div class="section" id="id66">
+<h5>10.3.5.11.3. Example<a class="headerlink" href="#id66" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>initial-guess-occ-file  =  step3/13_19/result.guess.occ.rks
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="initial-guess-occ-alpha-file">
+<h4>10.3.5.12. initial-guess-occ-alpha-file<a class="headerlink" href="#initial-guess-occ-alpha-file" title="Permalink to this headline">¶</a></h4>
+<p>Specifies the initial data file of α electron occupation number for UKS calculations.</p>
+<div class="section" id="id67">
+<h5>10.3.5.12.1. Default<a class="headerlink" href="#id67" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id68">
+<h5>10.3.5.12.2. Values<a class="headerlink" href="#id68" title="Permalink to this headline">¶</a></h5>
+<p>File name</p>
+</div>
+<div class="section" id="id69">
+<h5>10.3.5.12.3. Example<a class="headerlink" href="#id69" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>initial-guess-occ-alpha-file  =  step3/13_19/result.guess.occ.uks-alpha
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="initial-guess-occ-beta-file">
+<h4>10.3.5.13. initial-guess-occ-beta-file<a class="headerlink" href="#initial-guess-occ-beta-file" title="Permalink to this headline">¶</a></h4>
+<p>Specifies the initial data file of β electron occupation number for UKS calculations.</p>
+<div class="section" id="id70">
+<h5>10.3.5.13.1. Default<a class="headerlink" href="#id70" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id71">
+<h5>10.3.5.13.2. Values<a class="headerlink" href="#id71" title="Permalink to this headline">¶</a></h5>
+<p>File name</p>
+</div>
+<div class="section" id="id72">
+<h5>10.3.5.13.3. Example<a class="headerlink" href="#id72" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>initial-guess-occ-beta-file  =  step3/13_19/result.guess.occ.uks-beta
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="initial-guess-rho-file">
+<h4>10.3.5.14. initial-guess-rho-file<a class="headerlink" href="#initial-guess-rho-file" title="Permalink to this headline">¶</a></h4>
+<p>Specifies the initial data file of approximated electron density expansion coefficient.</p>
+<div class="section" id="id73">
+<h5>10.3.5.14.1. Default<a class="headerlink" href="#id73" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id74">
+<h5>10.3.5.14.2. Values<a class="headerlink" href="#id74" title="Permalink to this headline">¶</a></h5>
+<p>File name</p>
+</div>
+<div class="section" id="id75">
+<h5>10.3.5.14.3. Example<a class="headerlink" href="#id75" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>initial-guess-rho-file  =  guess2.ch3ch2coox.txt
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="initial-qclo-file">
+<h4>10.3.5.15. initial-qclo-file<a class="headerlink" href="#initial-qclo-file" title="Permalink to this headline">¶</a></h4>
+<p>Specifies the initial data file of fragment QCLOs in the order of <tt class="docutils literal"><span class="pre">fragment</span> <span class="pre">name</span></tt> and <tt class="docutils literal"><span class="pre">file</span> <span class="pre">name</span></tt>.</p>
+<div class="section" id="id76">
+<h5>10.3.5.15.1. Default<a class="headerlink" href="#id76" title="Permalink to this headline">¶</a></h5>
+<p>None</p>
+</div>
+<div class="section" id="id77">
+<h5>10.3.5.15.2. Example<a class="headerlink" href="#id77" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-none"><div class="highlight"><pre>initial-qclo-file = fragment1  step3/13_19/fl_Work/fl_Mtr_C.matrix.frag1.rks8
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">10. Fully Automatic Calculation Program QCLO</a><ul>
+<li><a class="reference internal" href="#id1">10.1. Introduction</a><ul>
+<li><a class="reference internal" href="#id2">10.1.1. Semi-automatic calculation program QCLO</a></li>
+<li><a class="reference internal" href="#id3">10.1.2. Convergence process for all-electron calculation of proteins</a></li>
+<li><a class="reference internal" href="#id4">10.1.3. Canonical orbitals and localized orbitals</a><ul>
+<li><a class="reference internal" href="#id5">10.1.3.1. Automatic calculation function based on the QCLO method</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">10.2. Execution procedure</a><ul>
+<li><a class="reference internal" href="#id7">10.2.1. Preparing input data for the QCLO method program</a></li>
+<li><a class="reference internal" href="#id8">10.2.2. Executing the QCLO method program</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9">10.3. Keywords for the auto-calculation method program</a><ul>
+<li><a class="reference internal" href="#control">10.3.1. CONTROL block</a><ul>
+<li><a class="reference internal" href="#step-selection">10.3.1.1. step-selection</a><ul>
+<li><a class="reference internal" href="#id10">10.3.1.1.1. Default</a></li>
+<li><a class="reference internal" href="#id11">10.3.1.1.2. Values</a></li>
+<li><a class="reference internal" href="#id12">10.3.1.1.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#filename">10.3.1.2. filename</a><ul>
+<li><a class="reference internal" href="#id13">10.3.1.2.1. Default</a></li>
+<li><a class="reference internal" href="#id14">10.3.1.2.2. Values</a></li>
+<li><a class="reference internal" href="#id15">10.3.1.2.3. Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#step">10.3.2. STEP block</a><ul>
+<li><a class="reference internal" href="#sequential-frames">10.3.2.1. sequential-frames</a><ul>
+<li><a class="reference internal" href="#id16">10.3.2.1.1. Default</a></li>
+<li><a class="reference internal" href="#id17">10.3.2.1.2. Values</a></li>
+<li><a class="reference internal" href="#id18">10.3.2.1.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#general-frames">10.3.2.2. general-frames</a><ul>
+<li><a class="reference internal" href="#id19">10.3.2.2.1. Default</a></li>
+<li><a class="reference internal" href="#id20">10.3.2.2.2. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#execution">10.3.2.3. execution</a><ul>
+<li><a class="reference internal" href="#id21">10.3.2.3.1. Default</a></li>
+<li><a class="reference internal" href="#id22">10.3.2.3.2. Values</a></li>
+<li><a class="reference internal" href="#id23">10.3.2.3.3. Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#global">10.3.3. GLOBAL block</a></li>
+<li><a class="reference internal" href="#id24">10.3.4. Other keywords</a><ul>
+<li><a class="reference internal" href="#pdf-keywords">10.3.4.1. pdf-keywords</a><ul>
+<li><a class="reference internal" href="#id25">10.3.4.1.1. Default</a></li>
+<li><a class="reference internal" href="#id26">10.3.4.1.2. Values</a></li>
+<li><a class="reference internal" href="#id27">10.3.4.1.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#qclo-keywords">10.3.4.2. qclo-keywords</a><ul>
+<li><a class="reference internal" href="#id28">10.3.4.2.1. Default</a></li>
+<li><a class="reference internal" href="#id29">10.3.4.2.2. Values</a></li>
+<li><a class="reference internal" href="#id30">10.3.4.2.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fragment">10.3.4.3. fragment</a><ul>
+<li><a class="reference internal" href="#id31">10.3.4.3.1. Default</a></li>
+<li><a class="reference internal" href="#id32">10.3.4.3.2. Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id33">10.3.5. Calculation conditions specified with <tt class="docutils literal"><span class="pre">qclo-keywords</span></tt></a><ul>
+<li><a class="reference internal" href="#add-ethyl">10.3.5.1. add_ethyl</a><ul>
+<li><a class="reference internal" href="#id34">10.3.5.1.1. Default</a></li>
+<li><a class="reference internal" href="#id35">10.3.5.1.2. Values</a></li>
+<li><a class="reference internal" href="#id36">10.3.5.1.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#set-fragment-add-ethyl">10.3.5.2. set_fragment_add_ethyl</a><ul>
+<li><a class="reference internal" href="#id37">10.3.5.2.1. Default</a></li>
+<li><a class="reference internal" href="#id38">10.3.5.2.2. Values</a></li>
+<li><a class="reference internal" href="#id39">10.3.5.2.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#no-add-terminal">10.3.5.3. no_add_terminal</a><ul>
+<li><a class="reference internal" href="#id40">10.3.5.3.1. Default</a></li>
+<li><a class="reference internal" href="#id41">10.3.5.3.2. Values</a></li>
+<li><a class="reference internal" href="#id42">10.3.5.3.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#set-fragment-by-element">10.3.5.4. set_fragment_by_element</a><ul>
+<li><a class="reference internal" href="#id43">10.3.5.4.1. Default</a></li>
+<li><a class="reference internal" href="#id44">10.3.5.4.2. Values</a></li>
+<li><a class="reference internal" href="#id45">10.3.5.4.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#localize-unocc-orbital">10.3.5.5. localize_unocc_orbital</a><ul>
+<li><a class="reference internal" href="#id46">10.3.5.5.1. Default</a></li>
+<li><a class="reference internal" href="#id47">10.3.5.5.2. Values</a></li>
+<li><a class="reference internal" href="#id48">10.3.5.5.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pickup-unocc-orbital">10.3.5.6. pickup_unocc_orbital</a><ul>
+<li><a class="reference internal" href="#id49">10.3.5.6.1. Default</a></li>
+<li><a class="reference internal" href="#id50">10.3.5.6.2. Values</a></li>
+<li><a class="reference internal" href="#id51">10.3.5.6.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#guessqclo-combine-unocc-orbital">10.3.5.7. guessqclo_combine_unocc_orbital</a><ul>
+<li><a class="reference internal" href="#id52">10.3.5.7.1. Default</a></li>
+<li><a class="reference internal" href="#id53">10.3.5.7.2. Values</a></li>
+<li><a class="reference internal" href="#id54">10.3.5.7.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#initial-guess-lcao-file">10.3.5.8. initial-guess-lcao-file</a><ul>
+<li><a class="reference internal" href="#id55">10.3.5.8.1. Default</a></li>
+<li><a class="reference internal" href="#id56">10.3.5.8.2. Values</a></li>
+<li><a class="reference internal" href="#id57">10.3.5.8.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#initial-guess-lcao-alpha-file">10.3.5.9. initial-guess-lcao-alpha-file</a><ul>
+<li><a class="reference internal" href="#id58">10.3.5.9.1. Default</a></li>
+<li><a class="reference internal" href="#id59">10.3.5.9.2. Values</a></li>
+<li><a class="reference internal" href="#id60">10.3.5.9.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#initial-guess-lcao-beta-file">10.3.5.10. initial-guess-lcao-beta-file</a><ul>
+<li><a class="reference internal" href="#id61">10.3.5.10.1. Default</a></li>
+<li><a class="reference internal" href="#id62">10.3.5.10.2. Values</a></li>
+<li><a class="reference internal" href="#id63">10.3.5.10.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#initial-guess-occ-file">10.3.5.11. initial-guess-occ-file</a><ul>
+<li><a class="reference internal" href="#id64">10.3.5.11.1. Default</a></li>
+<li><a class="reference internal" href="#id65">10.3.5.11.2. Values</a></li>
+<li><a class="reference internal" href="#id66">10.3.5.11.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#initial-guess-occ-alpha-file">10.3.5.12. initial-guess-occ-alpha-file</a><ul>
+<li><a class="reference internal" href="#id67">10.3.5.12.1. Default</a></li>
+<li><a class="reference internal" href="#id68">10.3.5.12.2. Values</a></li>
+<li><a class="reference internal" href="#id69">10.3.5.12.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#initial-guess-occ-beta-file">10.3.5.13. initial-guess-occ-beta-file</a><ul>
+<li><a class="reference internal" href="#id70">10.3.5.13.1. Default</a></li>
+<li><a class="reference internal" href="#id71">10.3.5.13.2. Values</a></li>
+<li><a class="reference internal" href="#id72">10.3.5.13.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#initial-guess-rho-file">10.3.5.14. initial-guess-rho-file</a><ul>
+<li><a class="reference internal" href="#id73">10.3.5.14.1. Default</a></li>
+<li><a class="reference internal" href="#id74">10.3.5.14.2. Values</a></li>
+<li><a class="reference internal" href="#id75">10.3.5.14.3. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#initial-qclo-file">10.3.5.15. initial-qclo-file</a><ul>
+<li><a class="reference internal" href="#id76">10.3.5.15.1. Default</a></li>
+<li><a class="reference internal" href="#id77">10.3.5.15.2. Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="analysis.html"
+                        title="previous chapter">9. Analysis of the ProteinDF Calculation Results</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="appendix.html"
+                        title="next chapter">11. Appendix</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/QCLO.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="appendix.html" title="11. Appendix"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="analysis.html" title="9. Analysis of the ProteinDF Calculation Results"
+             >previous</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Toshiyuki HIRANO.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

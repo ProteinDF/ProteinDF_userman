@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>4. Quick Start Guide &mdash; ProteinDF User&#39;s Manual 2014.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2014.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ProteinDF User&#39;s Manual 2014.0 documentation" href="index.html" />
+    <link rel="next" title="5. Input files" href="input.html" />
+    <link rel="prev" title="3. Installation" href="installation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="input.html" title="5. Input files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="3. Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>4. Quick Start Guide<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>This chapter describes how to perform a single-point calculation of amino acid (glycine) using a single process.</p>
+<span class="target" id="index-0"></span><span class="target" id="index-1"></span><div class="section" id="index-2">
+<span id="id2"></span><h2>4.1. Creating calculation directories<a class="headerlink" href="#index-2" title="Permalink to this headline">¶</a></h2>
+<p>ProteinDF writes a large number of large intermediate files with matrices/vectors on disk storage. Before starting actual calculations, create the following calculation directories:</p>
+<ul class="simple">
+<li>fl_Input</li>
+<li>fl_Table</li>
+<li>fl_Work</li>
+</ul>
+<p>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The program may abnormally terminate if the intermediate files cannot be written properly. Before executing MPI parallel computation, make sure that the files can be properly written from all nodes.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The user can execute <tt class="docutils literal"><span class="pre">${PDF_HOME}/bin/pdfsetup</span></tt> to perform the operation above.</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>4.2. Creating input files<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p id="index-3">Create a text file with the following content, and save it under the name <tt class="docutils literal"><span class="pre">fl_Userinput</span></tt>:</p>
+<div class="highlight-text"><div class="highlight"><pre>&gt;&gt;&gt;&gt;MAIN
+      step-control    = [create integral guess scf]
+      cut-value       = 1.0e-10
+      scf-start-guess = harris
+      max-iteration   = 100
+      method  = nsp
+      method/nsp/electron-number      = 40
+      method/nsp/occlevel     = [ 1 - 20 ]
+      orbital-independence-threshold  = 0.007
+      convergence/type        = density
+      convergence/threshold   = 1e-4
+      convergence/threshold-energy    = 1e-5
+      scf-acceleration        = damping
+      scf-acceleration/damping/damping-factor = 0.65
+      xc-potential    = b3lyp
+      scf-acceleration/damping/damping-type = density_matrix
+
+&gt;&gt;&gt;&gt;MOLECULE
+      geometry/cartesian/unit = angstrom
+      geometry/cartesian/input        = {
+              N        -1.888000        0.035000       -0.211000
+              H        -1.766000        0.945000        0.189000
+              H        -1.817000        0.099000       -1.205000
+              C        -0.758000       -0.730000        0.287000
+              H        -0.893000       -0.915000        1.372000
+              H        -0.720000       -1.725000       -0.200000
+              C         0.529000        0.065000        0.064000
+              O         0.520000        1.294000        0.114000
+              O         1.742000       -0.451000       -0.186000
+              H         1.692000       -1.400000       -0.203000
+      }end
+
+      basis-set/orbital       = {
+              H = &quot;O-HYDROGEN (41) DZVP&quot;
+              O = &quot;O-OXYGEN (621/41) by FS&quot;
+              C = &quot;O-CARBON (621/41) by FS&quot;
+              N = &quot;O-NITROGEN (621/41) by FS&quot;
+      }end
+
+      basis-set/density-auxiliary     = {
+              H = &quot;A-HYDROGEN (4,1;4,1) from deMon&quot;
+              O = &quot;A-OXYGEN (7/2;7/2) by FS&quot;
+              C = &quot;A-CARBON (7/2;7/2) by FS&quot;
+              N = &quot;A-NITROGEN (7/2;7/2) by FS&quot;
+      }end
+
+      basis-set/exchange-auxiliary    = {
+              H = &quot;A-HYDROGEN (4,1;4,1) from deMon&quot;
+              O = &quot;A-OXYGEN (7/2;7/2) by FS&quot;
+              C = &quot;A-CARBON (7/2;7/2) by FS&quot;
+              N = &quot;A-NITROGEN (7/2;7/2) by FS&quot;
+      }end
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Input files can be changed with a startup option of ProteinDF.</p>
+</div>
+</div>
+<div class="section" id="proteindf">
+<h2>4.3. Executing ProteinDF<a class="headerlink" href="#proteindf" title="Permalink to this headline">¶</a></h2>
+<p>Configure the environment variable PDF_HOME appropriately, and execute ProteinDF (in serial mode).</p>
+<div class="highlight-bash"><div class="highlight"><pre>% <span class="k">${</span><span class="nv">PDF_HOME</span><span class="k">}</span>/bin/PDF.x
+</pre></div>
+</div>
+<p>If the program terminates properly, the system returns to the command prompt.</p>
+</div>
+<div class="section" id="id4">
+<h2>4.4. Outputting results<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>The calculation results are output in files. The following shows an example of the output:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The output file location can be changed with a startup option of ProteinDF.</p>
+</div>
+<p>The beginning of the output file shows the version of ProteinDF and the number of parallel processes (MPI process count, the number of OpenMP threads). Make sure that the calculation was performed as intended.</p>
+<div class="highlight-none"><div class="highlight"><pre>[0:2012/**/07 17:17:02:INFO] **************************************
+[0:2012/**/07 17:17:02:INFO] ProteinDF version 20xx.x:xxxx (serial)
+[0:2012/**/07 17:17:02:INFO]
+[0:2012/**/07 17:17:02:INFO]  OpenMP threads: 12
+[0:2012/**/07 17:17:02:INFO]
+</pre></div>
+</div>
+<p>The calculation is performed according to the procedure described in <tt class="docutils literal"><span class="pre">step_control</span></tt>. The output date is indicated at left in the log</p>
+<div class="highlight-none"><div class="highlight"><pre>===============================================
+ &gt;&gt;&gt;&gt; INTEGRAL
+===============================================
+ &gt;&gt;&gt;&gt; Hpq
+
+ ...
+
+===============================================
+ &gt;&gt;&gt;&gt; GUESS
+===============================================
+
+ ...
+
+===============================================
+ &gt;&gt;&gt;&gt; SCF
+===============================================
+</pre></div>
+</div>
+<p>Energy data are output in the <tt class="docutils literal"><span class="pre">Total</span> <span class="pre">Energy</span></tt> block.</p>
+<div class="highlight-none"><div class="highlight"><pre>------------------------------------------------
+ &gt;&gt;&gt;&gt; Total Energy
+------------------------------------------------
+ Ts+Vn          =        -745.7264230071891689
+ E_J[Rho, Rho~] =         629.4907739256434525
+ E_J[Rho~,Rho~] =        -311.1519936178789294
+ E_xc(pure)     =         -27.8222685895087842
+ E_K            =          -6.8830892822011522
+ E_nuclei       =         179.8930288412503558
+ TE             =        -282.1999717298841688
+------------------------------------------------
+</pre></div>
+</div>
+<p>Other information, such as calculation size or cut off data, is output as needed.</p>
+<p>When the calculation completes properly, the CPU time and elapsed time are output.</p>
+<div class="highlight-none"><div class="highlight"><pre>************************************************
+ ProteinDF successful completion
+ CPU_TIME:         3454 sec
+ ELAPS_TIME:        542 sec
+************************************************
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">4. Quick Start Guide</a><ul>
+<li><a class="reference internal" href="#index-2">4.1. Creating calculation directories</a></li>
+<li><a class="reference internal" href="#id3">4.2. Creating input files</a></li>
+<li><a class="reference internal" href="#proteindf">4.3. Executing ProteinDF</a></li>
+<li><a class="reference internal" href="#id4">4.4. Outputting results</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="previous chapter">3. Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="input.html"
+                        title="next chapter">5. Input files</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/quick_start_guide.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="input.html" title="5. Input files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="3. Installation"
+             >previous</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Toshiyuki HIRANO.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

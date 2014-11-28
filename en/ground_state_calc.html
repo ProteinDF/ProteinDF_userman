@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>8. Ground State Calculation &mdash; ProteinDF User&#39;s Manual 2014.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2014.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ProteinDF User&#39;s Manual 2014.0 documentation" href="index.html" />
+    <link rel="next" title="9. Analysis of the ProteinDF Calculation Results" href="analysis.html" />
+    <link rel="prev" title="6. Execution Procedure" href="exec.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="analysis.html" title="9. Analysis of the ProteinDF Calculation Results"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="exec.html" title="6. Execution Procedure"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>8. Ground State Calculation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>8.1. Calculation method<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>ProteinDF allows the user to perform closed-shell, open-shell, and open-shell restricted calculations according to the electron configuration of the object. The calculation method can be specified using the keyword <tt class="docutils literal"><span class="pre">method</span></tt>.</p>
+</div>
+<div class="section" id="id3">
+<h2>8.2. Specifying electron count/occupied state<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="restricted-kohn-sham-method">
+<h3>8.2.1. Restricted Kohn-Sham method calculation<a class="headerlink" href="#restricted-kohn-sham-method" title="Permalink to this headline">¶</a></h3>
+<p>This method performs the calculation of a closed-shell molecule (singlet) where an electron pair occupies a single molecular orbital. To perform the calculation, specify <tt class="docutils literal"><span class="pre">method</span> <span class="pre">=</span> <span class="pre">rks</span></tt>.</p>
+<p>Further, specify the electron configuration using the keyword <tt class="docutils literal"><span class="pre">method/rks/occlevel</span></tt>. For example, when ten paired electrons occupy five low energy molecular orbitals, specify as follows:</p>
+<div class="highlight-none"><div class="highlight"><pre>method/rks/occlevel = [1 - 5]
+</pre></div>
+</div>
+<p>Here the lowest energy orbital is No. 1, and as the number increases, a higher energy orbital is assigned.</p>
+<p>Specify electron count by using the keyword <tt class="docutils literal"><span class="pre">rks/electrons</span></tt>. In the case of ten electrons, specify as follows:</p>
+<div class="highlight-none"><div class="highlight"><pre>rks/electrons = 10
+</pre></div>
+</div>
+<p>と記述します。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For closed-shell calculations, the <tt class="docutils literal"><span class="pre">rks/electrons</span></tt> value must be an even number.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The user can also specify the electron configuration as in <tt class="docutils literal"><span class="pre">method/rks/occlevel</span> <span class="pre">=</span> <span class="pre">[1-4,</span> <span class="pre">6]</span></tt>. In this case, electrons occupy the first to fourth orbitals, and the sixth orbital.</p>
+</div>
+</div>
+<div class="section" id="unrestricted-kohn-sham-method">
+<h3>8.2.2. Unrestricted Kohn-Sham method calculation<a class="headerlink" href="#unrestricted-kohn-sham-method" title="Permalink to this headline">¶</a></h3>
+<p>This method performs the calculation of an open-shell molecule, where the electron configurations of alpha spin and beta spin differ. To perform the calculation, specify <tt class="docutils literal"><span class="pre">method=uks</span></tt>.</p>
+<p>Specify electron counts for alpha and beta spins using <tt class="docutils literal"><span class="pre">uks/alpha_electrons</span></tt> and <tt class="docutils literal"><span class="pre">uks/beta_electrons</span></tt>, respectively. Similarly, specify the electron configuration for alpha and beta spins with <tt class="docutils literal"><span class="pre">method/uks/alpha-spin-occlevel</span></tt> and <tt class="docutils literal"><span class="pre">method/uks/beta-spin-occlevel</span></tt>, respectively</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Specify a <tt class="docutils literal"><span class="pre">uks/alpha_electrons</span></tt> value equal to or larger than the <tt class="docutils literal"><span class="pre">uks/beta_electrons</span></tt> value.</p>
+</div>
+</div>
+<div class="section" id="restricted-open-shell-kohn-sham-method">
+<h3>8.2.3. Restricted open shell Kohn-Sham method calculation<a class="headerlink" href="#restricted-open-shell-kohn-sham-method" title="Permalink to this headline">¶</a></h3>
+<p>This method performs the calculation by categorizing closed- and open-shell electron configurations. To perform the calculation, specify <tt class="docutils literal"><span class="pre">method=roks</span></tt>.</p>
+<p>Specify electron counts with <tt class="docutils literal"><span class="pre">method/roks/closed_shell_electrons</span></tt> and <tt class="docutils literal"><span class="pre">method/roks/open_shell_electrons</span></tt>, and electron configuration with <tt class="docutils literal"><span class="pre">method/roks/closed_shell_occlevel</span></tt> and <tt class="docutils literal"><span class="pre">method/roks/open_shell_occlevel</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>8.3. Specifying initial guess<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>Use the keyword <tt class="docutils literal"><span class="pre">guess</span></tt> to specify the initial guess for SFC loops.</p>
+<div class="section" id="core">
+<h3>8.3.1. core<a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h3>
+<p>Generates initial guess using core Hamiltonian. Specify <tt class="docutils literal"><span class="pre">guess=core</span></tt>.</p>
+</div>
+<div class="section" id="huckel">
+<h3>8.3.2. Hückel<a class="headerlink" href="#huckel" title="Permalink to this headline">¶</a></h3>
+<p>Generates initial guess with the Hückel method. Specify <tt class="docutils literal"><span class="pre">guess=huckel</span></tt>.</p>
+</div>
+<div class="section" id="harris">
+<h3>8.3.3. Harris functional<a class="headerlink" href="#harris" title="Permalink to this headline">¶</a></h3>
+<p>Generates initial guess with the Harris functional. Specify <tt class="docutils literal"><span class="pre">guess=harris</span></tt>. This function is not available for some atomic species.</p>
+</div>
+<div class="section" id="id5">
+<h3>8.3.4. Approximated electron density<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Generates initial guess with an approximated electron density. Specify <tt class="docutils literal"><span class="pre">guess=rho</span></tt>. A reliable result may not be obtained unless the RI method is applied.</p>
+</div>
+<div class="section" id="lcao">
+<h3>8.3.5. LCAO coefficient matrix<a class="headerlink" href="#lcao" title="Permalink to this headline">¶</a></h3>
+<p>Generates initial guess with the LCAO coefficient matrix. Specify <tt class="docutils literal"><span class="pre">guess=lcao</span></tt>. When using this function, prepare the LCAO coefficient matrix beforehand.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In the current version of the program, it is necessary to prepare LCAO text files and OCC text files in the calculation directory. This specification may change in the future.</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>8.3.6. Density matrix<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Uses a density matrix as the initial guess. Specify <tt class="docutils literal"><span class="pre">guess=density</span></tt>. Prepare the density matrix beforehand.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In the current version of the program, it is necessary to put the 0th density matrix file in the work directory (fl_Work). This specification may change in the future.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>8.4. Coulomb term calculation<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h3>8.4.1. Selecting calculation engine<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>Four-center two electron integrals required in Coulomb term calculation is a rate-determining process. Several calculation engines are implemented on ProteinDF for the calculation. Use the keyword <tt class="docutils literal"><span class="pre">J_engine</span></tt> for selection.</p>
+<div class="section" id="conventional">
+<h4>8.4.1.1. conventional<a class="headerlink" href="#conventional" title="Permalink to this headline">¶</a></h4>
+<p>Calculates four-center two electron integrals at each SCF iteration to obtain the Coulomb term.</p>
+</div>
+<div class="section" id="ri-j">
+<h4>8.4.1.2. RI_J<a class="headerlink" href="#ri-j" title="Permalink to this headline">¶</a></h4>
+<p>Calculates three-center integrals at each SCF iteration based on the RI method to obtain the Coulomb term. The calculation accuracy depends on auxiliary basis sets. This is the default engine of ProteinDF.</p>
+</div>
+<div class="section" id="id9">
+<h4>8.4.1.3. Cholesky decomposition<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>Based on the Cholesky decomposition method, obtains Cholesky vectors for four-center two-electron integrals before SCF loops. The Coulomb term is obtained during each SCF iteration through density matrix operation. High-speed computation is allowed since no molecular integral is executed during SCF calculations, but a large amount of memory and disk is consumed. Specify <tt class="docutils literal"><span class="pre">J_engine=CD</span></tt> to select this engine.</p>
+</div>
+</div>
+</div>
+<div class="section" id="fock">
+<h2>8.5. Fock exchange term calculation<a class="headerlink" href="#fock" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3>8.5.1. Selecting calculation engine<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>The Fock exchange term calculation is also rate-determining since it requires four-center two electron integrals. Use the keyword <tt class="docutils literal"><span class="pre">k_engine</span></tt> to select a calculation engine.</p>
+<div class="section" id="id11">
+<h4>8.5.1.1. conventional<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<p>Calculates four-center two electron integrals at each SCF iteration to obtain the Fock exchange term. This is the default engine of ProteinDF. Specify <tt class="docutils literal"><span class="pre">K_engine=conventional</span></tt> to select this engine.</p>
+</div>
+<div class="section" id="id12">
+<h4>8.5.1.2. Cholesky decomposition<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<p>Obtains the Fock exchange term using the Cholesky decomposition method, as in the Coulomb term calculation. This engine uses the Cholesky vectors obtained through the Cholesky decomposition for the Coulomb term calculation. Specify <tt class="docutils literal"><span class="pre">K_engine=CD</span></tt> to select this engine.</p>
+</div>
+</div>
+<div class="section" id="hartree-fock">
+<h3>8.5.2. Hybrid functional method and Hartree-Fock method<a class="headerlink" href="#hartree-fock" title="Permalink to this headline">¶</a></h3>
+<p>The user can perform a hybrid functional calculation or Hartree-Fock calculation by specifying the following value in the parameter <tt class="docutils literal"><span class="pre">xc-potential</span></tt>:</p>
+<ul>
+<li><p class="first">HF</p>
+<p>Performs electron state calculations by the Hartree-Fock method.</p>
+</li>
+<li><p class="first">B3LYP</p>
+<p>Performs hybrid functional calculations with the Becke 3-parameter.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>8.6. Exchange-correlation term calculation<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>In ProteinDF, the user can use numerical integral calculation or analytical calculation (grid-free method) to obtain the exchange-correlation term of the Kohn-Sham matrix, as well as the exchange-correlation energy. The default is the numerical integrals.</p>
+<div class="section" id="id14">
+<h3>8.6.1. Selecting the grid<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>Specify the numerical grid with the parameter <tt class="docutils literal"><span class="pre">xc-potential/grid-type</span></tt>. The default is the SG-1 grid. Refer to Appendix for details.</p>
+</div>
+<div class="section" id="id15">
+<h3>8.6.2. Functionals available for numerical integral method<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>Specify functionals with <tt class="docutils literal"><span class="pre">xc_potential</span></tt>. The available functionals are as follows:</p>
+<ul class="simple">
+<li>SVWN~</li>
+<li>SVWN</li>
+<li>BLYP</li>
+<li>B3LYP</li>
+<li>HFB</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For the exchange-correlation functional followed by a tilde <tt class="docutils literal"><span class="pre">~</span></tt>, ProteinDF obtains the exchange-correlation term with an approximated electron density based on the RI method.</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h3>8.6.3. Grid free method<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>Calculates the exchange-correlation term with a grid-free method. For details, see the keyword <tt class="docutils literal"><span class="pre">grid_free</span></tt> in Appendix.</p>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>8.7. Level shift calculation<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>This method allows shifting the energy level of a particular orbital. For details, see the keyword <tt class="docutils literal"><span class="pre">level_shift</span></tt> in Appendix.</p>
+</div>
+<div class="section" id="id18">
+<h2>8.8. Convergence acceleration techniques<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<p>ProteinDF provides several convergence algorisms to achieve a stable and efficient convergence during SFC loops. Use the keyword <tt class="docutils literal"><span class="pre">scf_acceleration</span></tt> for selection</p>
+<div class="section" id="damping">
+<h3>8.8.1. damping method<a class="headerlink" href="#damping" title="Permalink to this headline">¶</a></h3>
+<p>The physical quantity used in the last iteration is mixed to the current in a certain ratio. When Y (n) represents the physical quantity obtained at the nth SCF iteration, the updated amount X (n) can be obtained as follows:</p>
+<div class="math">
+<p><img src="_images/math/7ea5a2919630a9ee3319b0a23fcd9fa398101afe.png" alt="X^{\left(n\right)}\leftarrow aX^{\left(n-1\right)}+\left(1-a\right)Y^{\left(n\right)}
+
+\left(0&lt;a&lt;1\right)"/></p>
+</div><p>Here, specify the mixing ratio (a) and target physical quantity with <tt class="docutils literal"><span class="pre">scf_acceleration/damping/damping_factor</span></tt> and <tt class="docutils literal"><span class="pre">scf_acceleration/damping/damping_type</span></tt>, respectitvely.</p>
+<ul class="simple">
+<li><p class="first">Example</p>
+</li>
+</ul>
+<div class="highlight-none"><div class="highlight"><pre>scf_acceleration/damping/damping_factor = 0.85
+scf_acceleration/damping/damping_type = density_matrix
+</pre></div>
+</div>
+</div>
+<div class="section" id="anderson">
+<h3>8.8.2. Anderson&#8217;s method<a class="headerlink" href="#anderson" title="Permalink to this headline">¶</a></h3>
+<p>Employs the quadratic convergence method developed by Anderson. The equations when using the physical quantities at the past two points are as follows:</p>
+<div class="math">
+<p><img src="_images/math/ed94d372ad60da30d82583a9e620ea24233ea812.png" alt="X^{\left(n\right)}=u^{\left(n-1\right)}+b^{\left(n-1\right)}\left(v^{\left(n\right)}-u^{\left(n-1\right)}\right)
+
+u^{\left(n-1\right)}=X^{\left(n-1\right)}+\theta^{\left(n-1\right)}\left(X^{\left(n-2\right)}-X^{\left(n-1\right)}\right)
+
+v^{\left(n\right)}=Y^{\left(n\right)}+\theta^{\left(n-1\right)}\left(Y^{\left(n-1\right)}-Y^{\left(n\right)}\right)
+
+\theta^{\left(n-1\right)}=\frac{\left(r^{\left(n-1\right)},r^{\left(n-1\right)}-r^{\left(n-2\right)}\right)}{\left(r^{\left(n-1\right)}-r^{\left(n-2\right)},r^{\left(n-1\right)}-r^{\left(n-2\right)}\right)}
+
+r^{\left(n-1\right)}=Y^{\left(n\right)}-X^{\left(n-1\right)}
+
+\left(u,v\right)=\sum_{i}u_{i}v_{i}w_{i}"/></p>
+</div><p>Here, specify the b(n-1) with <tt class="docutils literal"><span class="pre">scf-acceleration/anderson/damping-factor</span></tt>.</p>
+<p>The damping method is applied before the Andarson&#8217;s method is started. Specify the SCF iteration number starting the Anderson&#8217;s method with <tt class="docutils literal"><span class="pre">scf_acceleration/anderson/start_number</span></tt>.</p>
+</div>
+<div class="section" id="diis">
+<h3>8.8.3. DIIS method<a class="headerlink" href="#diis" title="Permalink to this headline">¶</a></h3>
+<p>Employs the Direct Inversion of the Iterative Subspace (DIIS) method by Pulay. The DIIS method assumes that a new physical quantity X (n) can be obtained by the linear combination of X (n-i) in the past.</p>
+<div class="math">
+<p><img src="_images/math/789abed65ea182c9f8258120c0d584ca3cc851c5.png" alt="\displaystyle{X^{\left(n\right)}=\sum_{i=i_{0}}^{M}c_{i}X^{\left(n-i\right)}}
+
+\left(i_{0} \ge 1,\ i_{0}&lt;M \le n-1\right)"/></p>
+</div><p>Here, specify the number of references M with <tt class="docutils literal"><span class="pre">scf-acceleration/diis/number-of-diis</span></tt>.</p>
+<p>The damping method is applied before the DIIS method is started. Specify the SCF iteration number starting the DIIS method with <tt class="docutils literal"><span class="pre">scf-acceleration/diis/start-number</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">8. Ground State Calculation</a><ul>
+<li><a class="reference internal" href="#id2">8.1. Calculation method</a></li>
+<li><a class="reference internal" href="#id3">8.2. Specifying electron count/occupied state</a><ul>
+<li><a class="reference internal" href="#restricted-kohn-sham-method">8.2.1. Restricted Kohn-Sham method calculation</a></li>
+<li><a class="reference internal" href="#unrestricted-kohn-sham-method">8.2.2. Unrestricted Kohn-Sham method calculation</a></li>
+<li><a class="reference internal" href="#restricted-open-shell-kohn-sham-method">8.2.3. Restricted open shell Kohn-Sham method calculation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">8.3. Specifying initial guess</a><ul>
+<li><a class="reference internal" href="#core">8.3.1. core</a></li>
+<li><a class="reference internal" href="#huckel">8.3.2. Hückel</a></li>
+<li><a class="reference internal" href="#harris">8.3.3. Harris functional</a></li>
+<li><a class="reference internal" href="#id5">8.3.4. Approximated electron density</a></li>
+<li><a class="reference internal" href="#lcao">8.3.5. LCAO coefficient matrix</a></li>
+<li><a class="reference internal" href="#id6">8.3.6. Density matrix</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">8.4. Coulomb term calculation</a><ul>
+<li><a class="reference internal" href="#id8">8.4.1. Selecting calculation engine</a><ul>
+<li><a class="reference internal" href="#conventional">8.4.1.1. conventional</a></li>
+<li><a class="reference internal" href="#ri-j">8.4.1.2. RI_J</a></li>
+<li><a class="reference internal" href="#id9">8.4.1.3. Cholesky decomposition</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fock">8.5. Fock exchange term calculation</a><ul>
+<li><a class="reference internal" href="#id10">8.5.1. Selecting calculation engine</a><ul>
+<li><a class="reference internal" href="#id11">8.5.1.1. conventional</a></li>
+<li><a class="reference internal" href="#id12">8.5.1.2. Cholesky decomposition</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#hartree-fock">8.5.2. Hybrid functional method and Hartree-Fock method</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13">8.6. Exchange-correlation term calculation</a><ul>
+<li><a class="reference internal" href="#id14">8.6.1. Selecting the grid</a></li>
+<li><a class="reference internal" href="#id15">8.6.2. Functionals available for numerical integral method</a></li>
+<li><a class="reference internal" href="#id16">8.6.3. Grid free method</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id17">8.7. Level shift calculation</a></li>
+<li><a class="reference internal" href="#id18">8.8. Convergence acceleration techniques</a><ul>
+<li><a class="reference internal" href="#damping">8.8.1. damping method</a></li>
+<li><a class="reference internal" href="#anderson">8.8.2. Anderson&#8217;s method</a></li>
+<li><a class="reference internal" href="#diis">8.8.3. DIIS method</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="exec.html"
+                        title="previous chapter">6. Execution Procedure</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="analysis.html"
+                        title="next chapter">9. Analysis of the ProteinDF Calculation Results</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/ground_state_calc.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="analysis.html" title="9. Analysis of the ProteinDF Calculation Results"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="exec.html" title="6. Execution Procedure"
+             >previous</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Toshiyuki HIRANO.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,3484 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>11. Appendix &mdash; ProteinDF User&#39;s Manual 2014.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2014.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ProteinDF User&#39;s Manual 2014.0 documentation" href="index.html" />
+    <link rel="prev" title="10. Fully Automatic Calculation Program QCLO" href="QCLO.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="QCLO.html" title="10. Fully Automatic Calculation Program QCLO"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>11. Appendix<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="proteindf">
+<h2>11.1. ProteinDF startup options<a class="headerlink" href="#proteindf" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>-r</li>
+</ul>
+<p>Restarts computation from available points. The calculation conditions are loaded from the parameter file (pdfparam.mpac).</p>
+<ul class="simple">
+<li>-i input_file</li>
+</ul>
+<p>Starts computation with a specified input file. If not specified, the <tt class="docutils literal"><span class="pre">fl_Userinput</span></tt> file in the current directory is used.</p>
+<ul class="simple">
+<li>-o output_file</li>
+</ul>
+<p>Outputs debug logs. A large number of messages may be output in the output file and standard output. Normally it is not necessary to use this option.</p>
+<ul class="simple">
+<li>-d</li>
+</ul>
+<p>Specifies the output file for the results. If not specified, the <tt class="docutils literal"><span class="pre">fl_Out_Std</span></tt> file is output in the current directory.</p>
+</div>
+<div class="section" id="id2">
+<h2>11.2. Input parameter list<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>pdf_param_path</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>pdf_param_path</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the path of the ProteinDF parameter file.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>pdfparam.mpac</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>.*</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>step_control</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>step_control</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the calculation scheme.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>create</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>((create|integral|guess|scf|force)s*)+</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>comment</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>comment</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">comment</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>.*</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>linear_algebra_package</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>linear_algebra_package</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the linear operation library.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>lapack</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(lapack|scalapack)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scalapack_block_size</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>scalapack_block_size</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the block size of the ScaLAPACK library.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>64</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(d+)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>save_distributed_matrix_to_local_disk</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>save_distributed_matrix_to_local_disk</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Saves distributed matrix to each node local disk (yes).</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>local_disk_path</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>local_disk_path</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the local disk directory in which to save distributed matrix.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>/tmp</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>.*</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>memory_size</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>memory_size</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the memory size available for computation.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1GB</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>d+s*(MB|GB)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>use_mapfile</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>use_mapfile</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Uses memory-mapped files (yes).</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>mapfile_size</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>mapfile_size</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the size of the memory- mapped file.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>auto</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(d+s*(MB|GB)|auto)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>mapfile_basename</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>mapfile_basename</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the path of the memory-mapped file.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>pdf</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>.*</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>work_on_disk</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>work_on_disk</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Forcefully uses memory-mapped files (yes).</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>parallel_processing_type</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>parallel_processing_type</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Selects the parallel computation algorithm.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>divide_and_conquer</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(divide_and_conquer|DC|master_slave|MS)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>cleanup</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>cleanup</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Deletes intermediate files (yes).</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>show_keyword</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>show_keyword</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Outputs the ProteinDF parameters (yes).</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>show_input</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>show_input</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Outputs the ProteinDF parameters specified with input files (yes).</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>yes</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>show_coordinates</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>show_coordinates</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Outputs the molecular coordinates (yes).</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>yes</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>show_orbital_basis</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>show_orbital_basis</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Outputs the current basis sets in the specified format.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>gamess</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(gamess|amoss|none)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>guess</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>guess</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the initial guess for SCF loop.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>rho</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(rho|file_rho|lcao|density|core|huckel|harris)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>cut-value</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>cut-value</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the cut off value for molecular integrals.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1.0E-10</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(double &gt; 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>block-size</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>block-size</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the block size for molecular integrals.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1024000</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(integer &gt; 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>charge-extrapolate-number</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>charge-extrapolate-number</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the SCF iteration number to start extrapolating the charge (X).</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(integer &gt;= 1)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>orbital-overlap-correspondence</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>orbital-overlap-correspondence</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Uses the orbital overlap method when obtaining density matrices (yes).</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>off</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>on/off</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>orbital-overlap-correspondence-first</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>orbital-overlap-correspondence-first</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies whether or not to use the orbital-overlap-correspondence method or mo-projection method from the first SCF iteration. Only valid when the initial guess is LCAO.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>off</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>on/off</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>orbital-overlap-correspondence-method</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>orbital-overlap-correspondence-method</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies whether to use the orbital-overlap-correspondence method, or mo-projection method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>mo-overlap</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>mo-overlap/mo-projection</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>orbital-overlap-correspondence-number</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>orbital-overlap-correspondence-number</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>3</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>summary</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>summary</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Outputs the summary of computation. A large amount of data may be output depending on the calculation scale.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>none</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(none|convergence|every-scf)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>analyze_population</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>analyze_population</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Outputs the formal charge. A large amount of data may be output depending on the calculation scale.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>none</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(none|convergence|every-scf)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>max-iteration</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>max-iteration</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the maximum number of SCF iterations.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>100</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(integer)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>method</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>method</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the spin handling method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>rks</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(rks|uks|roks)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>method/rks/occlevel</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>method/rks/occlevel</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the level of occupied orbitals.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(array of integer &gt;= 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>method/rks/electrons</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>method/rks/electrons</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the electron count.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(integer &gt;= 2)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>method/uks/alpha_occlevel</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>method/uks/alpha_occlevel</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the alpha-spin occupied orbitals.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(array of integer &gt;= 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>method/uks/alpha_electrons</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>method/uks/alpha_electrons</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the alpha spin electron count.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(integer &gt;= 1)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>method/uks/beta_occlevel</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>method/uks/beta_occlevel</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the beta-spin occupied orbitals.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(array of integer &gt;= 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>method/uks/beta_electrons</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>method/uks/beta_electrons</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the beta spin electron count.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(integer &gt;= 1)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>method/roks/closed_occlevel</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>method/roks/closed_occlevel</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>roks計算における閉殻軌道の指定</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(array of integer &gt;= 1)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>method/uks/close_electrons</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>method/uks/close_electrons</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>roks計算における閉殻軌道の電子数</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(array of integer &gt;= 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>method/roks/open_occlevel</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>method/roks/open_occlevel</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>roks計算における開殻軌道の指定</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(array of integer &gt;= 1)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>method/uks/beta_occlevel</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>method/uks/beta_occlevel</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the beta-spin occupied orbitals.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(array of integer &gt;= 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>save_diff_density_matrix</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>save_diff_density_matrix</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>yes</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>use_matrix_cache</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>use_matrix_cache</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>yes</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>force_loading_from_disk</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>force_loading_from_disk</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>yes</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>show_cache_report</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>show_cache_report</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Reports the memory cash usage.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>disk-utilization</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>disk-utilization</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>yes/no</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>update_method</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>update_method</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>yes</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>orbital-independence-threshold</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>orbital-independence-threshold</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>0.007</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(real &gt;= 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>convergence/type</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>convergence/type</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the convergence judgment parameters.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>density</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(fock|density|dcoef)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>convergence/threshold</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>convergence/threshold</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the convergence judgment threshold.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1e-3</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(real &gt; 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>convergence/threshold-energy</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>convergence/threshold-energy</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the energy threshold for convergence judgment.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1e-4</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(real &gt; 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scf-acceleration</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>scf-acceleration</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the convergence acceleration method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>damping</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(damping|anderson|diis)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scf-acceleration/damping/damping-factor</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>scf-acceleration/damping/damping-factor</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the factor of the damping method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>0.85</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(real)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scf-acceleration/daming/start-number</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>scf-acceleration/daming/start-number</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the number of SCF iteration to start the damping method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>0</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(int)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scf-acceleration/damping/damping-type</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>scf-acceleration/damping/damping-type</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the parameters to which to apply the damping method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>density</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(fock|density_matrix|density|dcoef)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scf-acceleration/anderson/damping-factor</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>scf-acceleration/anderson/damping-factor</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the damping factor for Anderson&#8217;s method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>0.50</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(real)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scf-acceleration/anderson/start-number</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>scf-acceleration/anderson/start-number</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the number of SCF iteration to start the Anderson&#8217;s method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>3</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(int)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>level-shift</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>level-shift</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Applies the level shift method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>level-shift/start-iteration</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>level-shift/start-iteration</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the number of SCF iteration to start the level shift method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(int)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>level-shift/ls-closed-mo</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>level-shift/ls-closed-mo</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the shift value applied to closed orbitals in the level shift method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>0.00</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(real)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>level-shift/ls-open-mo</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>level-shift/ls-open-mo</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the shift value applied to open orbitals in the level shift method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>0.00</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(real)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>level-shift/ls-virtual-mo</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>level-shift/ls-virtual-mo</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the shift value applied to unoccupied orbitals in the level shift method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>0.00</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(real)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scf-acceleration/diis/number-of-diis</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>scf-acceleration/diis/number-of-diis</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>3</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(integer)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scf-acceleration/diis/start-number</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>scf-acceleration/diis/start-number</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the number of vectors referred in the DIIS method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>3</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(integer &gt;= 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scf-acceleration/diis/start-extrapolation</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>scf-acceleration/diis/start-extrapolation</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>6</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(integer &gt;= 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>xc-potential</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>xc-potential</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the exchange-correlation functional.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>svwn~</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(svwn~|svwn|blyp|b3lyp)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>grid_free</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>grid_free</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">use grid-free method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>false</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>xc-potential/grid-type</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>xc-potential/grid-type</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the threshold of the electron density at the grid point.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>sg-1</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>fine/medium-fine/medium/coarse/sg-1</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>xc-update</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>xc-update</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>yes</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>xc-density-threshold</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>xc-density-threshold</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1.0E-16</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>real</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>TEI-integral-driven</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>TEI-integral-driven</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>yes</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>J_engine</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>J_engine</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the calculation engine for the Coulomb term.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>RI_J</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(conventional|RI_J|CD)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>K_engine</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>K_engine</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the calculation engine for the Fock exchange term.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>conventional</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(conventional|RI_K|CD)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>CDAM_tau</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>CDAM_tau</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the threshold of pre-screening in the CD method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1.0E-10</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(real)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>CD_epsilon</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>CD_epsilon</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies the threshold of the error tolerance in the CD method.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1.0E-4</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(real)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scf-memory-saving</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>scf-memory-saving</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>yes/no</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>geometry/cartesian/input</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>geometry/cartesian/input</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td><p class="first last">Specifies molecular structure in the Cartesian coordinate system.</p>
+</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>nil</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>nil/stored</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>geometry/cartesian/unit</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>geometry/cartesian/unit</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>a.u.</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>au/a.u./angstrom</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>basis-set/orbital</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>basis-set/orbital</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>nil</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>nil/stored</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>basis-set/density-auxiliary</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>basis-set/density-auxiliary</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>nil</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>nil/stored</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>basis-set/exchange-auxiliary</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>basis-set/exchange-auxiliary</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>nil</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>nil/stored</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>xc_density_threshold</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>xc_density_threshold</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1.0E-16</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>real</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>geometry</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>geometry</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>cartesian</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>cartesian/file</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>coordinates</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>coordinates</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>basis_sets</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>basis_sets</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>basis_sets_j</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>basis_sets_j</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>basis_sets_k</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>basis_sets_k</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>independent-orbital-number</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>independent-orbital-number</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>0</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(integer &gt; 0)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>xc-potential/gxalpha/alpha-value</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>xc-potential/gxalpha/alpha-value</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>0.7</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>real</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>myu-nyu-zero</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>myu-nyu-zero</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>guess/nsp-ppq</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>guess/nsp-ppq</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>nil</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>nil/stored</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>guess/sp-ppq</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>guess/sp-ppq</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>nil</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>nil/stored</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>guess/trans-angle-threshold</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>guess/trans-angle-threshold</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1.0 1.5 20 30</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>nil/stored</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>guess/make-myu-nyu</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>guess/make-myu-nyu</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>meth0</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>meth0/meth1/meth2/meth3/meth4</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>guess/vct-normalize</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>guess/vct-normalize</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>ON OFF OFF</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>guess/part-normalize</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>guess/part-normalize</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>nil</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>nil/stored</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>guess/user-vector</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>guess/user-vector</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>nil</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(nil|stored)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>num_of_atoms</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>num_of_atoms</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>num_of_dummy_atoms</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>num_of_dummy_atoms</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>num_of_AOs</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>num_of_AOs</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>num_of_MOs</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>num_of_MOs</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>num_of_auxCDs</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>num_of_auxCDs</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>num_of_auxXCs</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>num_of_auxXCs</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>TE</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>TE</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>debug/file_warning</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>debug/file_warning</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>yes</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>debug/save_J</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>debug/save_J</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>debug/save_K</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>debug/save_K</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>debug/save_Fxc_pure</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>debug/save_Fxc_pure</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>debug/save_forces</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>debug/save_forces</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>no</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>(yes|no)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>cutoff_distribution</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>cutoff_distribution</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>length_scale_parameter</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>length_scale_parameter</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>1</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>control</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>control</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>debug/eri/exact_J</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>debug/eri/exact_J</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>cutoff_density</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>cutoff_density</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>cutoff_epsilon3</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>cutoff_epsilon3</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>debug/eri/exact_K</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>debug/eri/exact_K</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>new_engine</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>new_engine</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>debug/eri/output_K</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>debug/eri/output_K</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>debug/eri/output_J</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>debug/eri/output_J</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>num_of_iterations</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>num_of_iterations</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>stat</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><th class="stub"><p class="first last">Parameter</p>
+</th>
+<td>stat</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Description</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><th class="stub"><p class="first last">Default</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><th class="stub"><p class="first last">Values</p>
+</th>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h2>11.3. Input file format<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="basis2">
+<h2>11.4. basis2 file format<a class="headerlink" href="#basis2" title="Permalink to this headline">¶</a></h2>
+<p>The basis2 file stores the basis set data. The following shows a sample of the file:</p>
+<div class="highlight-python"><div class="highlight"><pre>O-DZVP2.C
+    3 2 1
+    7
+       5784.15710000	      0.00081900
+        869.30350000	      0.00629350
+        198.51164000	      0.03178120
+         56.42990100	      0.11727340
+         18.28545700	      0.30347630
+          6.44871460	      0.45352140
+          2.34185960	      0.24305910
+    2
+          5.45953280	     -0.07780440
+          0.47819680	      0.57149470
+    1
+          0.14573010	      1.00000000
+    5
+         34.25856300	      0.00580430
+          7.86389540	      0.04064030
+          2.34451930	      0.15502190
+          0.79617150	      0.35314440
+          0.27268040	      0.45500620
+    1
+          0.08926050	      1.00000000
+    1
+          0.60000000	      1.00000000
+</pre></div>
+</div>
+<ul class="simple">
+<li><p class="first">Format</p>
+</li>
+</ul>
+<p>** 1st line (title line)</p>
+<p>Describe the basis set name. The names beginning with <tt class="docutils literal"><span class="pre">O-</span></tt> and <tt class="docutils literal"><span class="pre">A-</span></tt> signify basis sets and auxiliary basis sets, respectively. The basis set name consists of a single CGTO block. The auxiliary basis set name consists of two CGTO blocks, representing the auxiliary basis sets for the Coulomb term and exchange-correlation term.</p>
+<p>** 2nd line (CGTO block start line)</p>
+<p>Specify the type and number of the orbitals of contracted Gaussian-type basis sets (CGTO). The three integers separated with a blank character represent the number of s-types, p-types, and d-types, respectively. A CGTO block follows this line.</p>
+<p>&#8220;3 2 1&#8221;と記述されていた場合、
+s型の縮約ガウス型基底関数が3つ、
+p型の縮約ガウス型基底関数が2つ、
+d型の縮約ガウス型基底関数が1つ含まれていることを表します。
+したがって、この行以降、7つのCGTOブロックが記述されることになります。</p>
+<p>** 3rd line (CGTO start line)</p>
+<p>The number at the top of a CGTO block signifies the number of primitive Gaussian-type basis sets (PGTO) contained in the current block.</p>
+<p>** 4th line (PGTO line)</p>
+<p>Describe the exponent and coefficient of the primitive Gaussian-type basis set (PGTO) by separating them with a blank character. The coefficient (1.0) can be omitted for auxiliary basis sets.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">11. Appendix</a><ul>
+<li><a class="reference internal" href="#proteindf">11.1. ProteinDF startup options</a></li>
+<li><a class="reference internal" href="#id2">11.2. Input parameter list</a></li>
+<li><a class="reference internal" href="#id3">11.3. Input file format</a></li>
+<li><a class="reference internal" href="#basis2">11.4. basis2 file format</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="QCLO.html"
+                        title="previous chapter">10. Fully Automatic Calculation Program QCLO</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/appendix.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="QCLO.html" title="10. Fully Automatic Calculation Program QCLO"
+             >previous</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Toshiyuki HIRANO.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

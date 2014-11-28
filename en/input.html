@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5. Input files &mdash; ProteinDF User&#39;s Manual 2014.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2014.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ProteinDF User&#39;s Manual 2014.0 documentation" href="index.html" />
+    <link rel="next" title="6. Execution Procedure" href="exec.html" />
+    <link rel="prev" title="4. Quick Start Guide" href="quick_start_guide.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="exec.html" title="6. Execution Procedure"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="quick_start_guide.html" title="4. Quick Start Guide"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>5. Input files<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>ProteinDF reads calculation parameters from ASCII text input files. The user can use any preferred editor to create and edit the input files.</p>
+<p id="index-0">The default input file name is <tt class="docutils literal"><span class="pre">fl_Userinput</span></tt>. If a file named <tt class="docutils literal"><span class="pre">fl_Userinput</span></tt> exists in the current directory, the program reads the file as an input.</p>
+<p>The input file for ProteinDF consists of the following sections:</p>
+<ul class="simple">
+<li>MAIN</li>
+<li>MOLECULE</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Although the previous versions of ProteinDF categorized the keywords in groups, the current version does not require such grouping. Specify keywords at any arbitrary location.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The input files only accept the default locale (LANG=C). If a Japanese Kanji-code (e.g. UTF-8, EUC, Shift-JIS) is used in input files, the program may not obtain an accurate result. In particular, pay attention to the use of a blank (space) character.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">In input files, be sure to use the line feed code in accordance with the user&#8217;s system. Otherwise, the program may not obtain an accurate result. Most of the UNIX systems use the LF (0x0A) code. Be sure to take an appropriate measure when transferring the files created in a Windows system (line feed code: CR(0x0D)+LF) to UNIX systems via FTP or SFTP.</p>
+</div>
+<div class="section" id="id2">
+<h2>5.1. Syntax<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Specify the keywords in the following format:</p>
+<div class="highlight-none"><div class="highlight"><pre>keyword = value
+</pre></div>
+</div>
+<p>The keywords are case-insensitive.</p>
+<p>The value can be of the following three types:</p>
+<ul class="simple">
+<li><p class="first">A single value</p>
+</li>
+</ul>
+<p>A value which does not contain a blank (space, tab, line feed, etc.) can be directly specified as follows:</p>
+<div class="highlight-none"><div class="highlight"><pre>max-iteration = 100
+</pre></div>
+</div>
+<ul class="simple">
+<li><p class="first">A single-line text</p>
+</li>
+</ul>
+<p>A text which does not contain a line feed can be specified between brackets (<tt class="docutils literal"><span class="pre">[</span> <span class="pre">]</span></tt>), as follows:</p>
+<div class="highlight-none"><div class="highlight"><pre>method/nsp/occlevel = [ 1 - 20 ]
+</pre></div>
+</div>
+<ul class="simple">
+<li><p class="first">Multiple-line text</p>
+</li>
+</ul>
+<p>Specify a text which contains a line feed between braces (<tt class="docutils literal"><span class="pre">{</span></tt>, <tt class="docutils literal"><span class="pre">}end</span></tt>) as follows:</p>
+<div class="highlight-none"><div class="highlight"><pre>geometry/cartesian/input = {
+             // molecule1
+             N        -1.888000        0.035000       -0.211000
+             H        -1.766000        0.945000        0.189000
+             H        -1.817000        0.099000       -1.205000
+             C        -0.758000       -0.730000        0.287000
+             H        -0.893000       -0.915000        1.372000
+             H        -0.720000       -1.725000       -0.200000
+             C         0.529000        0.065000        0.064000
+             O         0.520000        1.294000        0.114000
+             O         1.742000       -0.451000       -0.186000
+             H         1.692000       -1.400000       -0.203000
+}end
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Any text following double-slash <tt class="docutils literal"><span class="pre">//</span></tt> to the end of the line is treated as a comment. Any line beginning with a hash <tt class="docutils literal"><span class="pre">#</span></tt> is also ignored as a comment.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If identical keywords are specified, the latter one overwrites the earlier.</p>
+</div>
+</div>
+<div class="section" id="main">
+<h2>5.2. MAIN section<a class="headerlink" href="#main" title="Permalink to this headline">¶</a></h2>
+<p>Specify the parameters necessary for calculation. For details, see the parameter list in Appendix. The following describes the most frequently used parameters:</p>
+<div class="section" id="step-control">
+<span id="index-1"></span><h3>5.2.1. step_control<a class="headerlink" href="#step-control" title="Permalink to this headline">¶</a></h3>
+<p>Specifies calculation schemes. The ProteinDF performs calculations according to the scheme order specified here.</p>
+<div class="section" id="id3">
+<h4>5.2.1.1. Values<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>create</li>
+</ul>
+<p>Analyzes the parameters. No calculation is performed.</p>
+<ul class="simple">
+<li>integral</li>
+</ul>
+<p>Executes the pre-processing for SCF loops, such as core Hamiltonian, overlap integrals, and grid generation.</p>
+<ul class="simple">
+<li>guess</li>
+</ul>
+<p>Generates initial guess.</p>
+<ul class="simple">
+<li>SCF</li>
+</ul>
+<p>Executes SCF loops.</p>
+<ul class="simple">
+<li>force</li>
+</ul>
+<p>Calculates derivatives of energy with respect to nuclear coordinates.</p>
+</div>
+<div class="section" id="id4">
+<h4>5.2.1.2. Example<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none"><div class="highlight"><pre>step_control = [create integral guess scf]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="scf-start-guess">
+<span id="index-2"></span><h3>5.2.2. scf_start_guess<a class="headerlink" href="#scf-start-guess" title="Permalink to this headline">¶</a></h3>
+<p>Specifies initial guess for SCF calculations.</p>
+<div class="section" id="id5">
+<h4>5.2.2.1. Values<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">huckel</p>
+<p>Obtains initial guess with the Hückel method.</p>
+</li>
+<li><p class="first">harris</p>
+<p>Obtains initial guess using the Harris functional from the electron density of atoms previously prepared.</p>
+</li>
+<li><p class="first">core</p>
+<p>Obtains initial guess from the wave function obtained by diagonalizing the core Hamiltonian.</p>
+</li>
+<li><p class="first">rho</p>
+<p>Merges the approximated electron density of each atom previously prepared, and generates an approximated electron density of the model molecule.</p>
+</li>
+<li><p class="first">file_rho</p>
+<p>Obtains an approximated electron density using an auxiliary basis expansion coefficient file <tt class="docutils literal"><span class="pre">guess_rho</span></tt> created by the user, and uses the value as initial guess.</p>
+</li>
+<li><p class="first">lcao</p>
+<p>Generates initial guess from the user-created LCAO matrix file (<tt class="docutils literal"><span class="pre">guess.lcao.rks</span></tt>) and occupation number file (<tt class="docutils literal"><span class="pre">guess.occ.rks</span></tt>).</p>
+</li>
+<li><p class="first">density_matrix</p>
+<p>Uses the user-created electron density file as initial guess.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="molecule">
+<h2>5.3. MOLECULE section<a class="headerlink" href="#molecule" title="Permalink to this headline">¶</a></h2>
+<p>Specify the following keywords:</p>
+<div class="section" id="geometry-cartesian-unit">
+<span id="index-3"></span><h3>5.3.1. geometry/cartesian/unit<a class="headerlink" href="#geometry-cartesian-unit" title="Permalink to this headline">¶</a></h3>
+<p>Specifies the unit of length used for input coordinates.</p>
+<div class="section" id="id6">
+<h4>5.3.1.1. Values<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>angstrom, au</p>
+</div>
+<div class="section" id="id7">
+<h4>5.3.1.2. Example<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none"><div class="highlight"><pre>geometry/cartesian/unit = angstrom
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="geometry-cartesian-input">
+<span id="index-4"></span><h3>5.3.2. geometry/cartesian/input<a class="headerlink" href="#geometry-cartesian-input" title="Permalink to this headline">¶</a></h3>
+<p>Specifies the target atomic species to be calculated and their XYZ coordinates. In each line, specify atomic species, X, Y, and Y coordinates sequentially, separating each value with a blank (space or tab) character. Specify atomic species with the atomic symbols.</p>
+<div class="section" id="id8">
+<h4>5.3.2.1. Example<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none"><div class="highlight"><pre>geometry/cartesian/input        = {
+             N        -1.888000        0.035000       -0.211000
+             H        -1.766000        0.945000        0.189000
+             H        -1.817000        0.099000       -1.205000
+             C        -0.758000       -0.730000        0.287000
+             H        -0.893000       -0.915000        1.372000
+             H        -0.720000       -1.725000       -0.200000
+             C         0.529000        0.065000        0.064000
+             O         0.520000        1.294000        0.114000
+             O         1.742000       -0.451000       -0.186000
+             H         1.692000       -1.400000       -0.203000
+}end
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The user can add a label by attaching <tt class="docutils literal"><span class="pre">&#64;</span></tt> after atomic symbols. This function is useful when assigning basis sets to the same element in separate groups.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A dummy atom can be specified with <tt class="docutils literal"><span class="pre">X</span></tt>. In that case, specify the electric charge of the dummy atom in the fifth column.</p>
+</div>
+</div>
+</div>
+<div class="section" id="basis-set-orbital">
+<span id="index-5"></span><h3>5.3.3. basis-set/orbital<a class="headerlink" href="#basis-set-orbital" title="Permalink to this headline">¶</a></h3>
+<p>Specifies basis sets to all atomic species used for calculation. Describe the name of the basis set for each atomic species. The names of the assigned basis sets must be previously specified in the basis2 file. See Appendix for the basis2 file.</p>
+<div class="section" id="id9">
+<h4>5.3.3.1. Example<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none"><div class="highlight"><pre>basis-set/orbital = {
+             H = &quot;O-HYDROGEN (41) DZVP&quot;
+             O = &quot;O-OXYGEN (621/41) by FS&quot;
+             C = &quot;O-CARBON (621/41) by FS&quot;
+             N = &quot;O-NITROGEN (621/41) by FS&quot;
+}end
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The user can add a label by attaching <tt class="docutils literal"><span class="pre">&#64;</span></tt> after atomic symbols.</p>
+</div>
+</div>
+</div>
+<div class="section" id="basis-set-density-auxiliary">
+<span id="index-6"></span><h3>5.3.4. basis-set/density-auxiliary<a class="headerlink" href="#basis-set-density-auxiliary" title="Permalink to this headline">¶</a></h3>
+<p>Specifies the auxiliary basis sets used for Coulomb term calculation. Use this keyword when calculating the term in the RI_J method. The specification procedure is the same as that for basis sets.</p>
+</div>
+<div class="section" id="basis-set-exchange-auxiliary">
+<span id="index-7"></span><h3>5.3.5. basis-set/exchange-auxiliary<a class="headerlink" href="#basis-set-exchange-auxiliary" title="Permalink to this headline">¶</a></h3>
+<p>Specifies the auxiliary basis sets used for exchange-correlation term calculation. Use this keyword when calculating the term in the RI method (i.e. when the user attached <tt class="docutils literal"><span class="pre">~</span></tt> to the end of the specified exchange-correlation functional.) The specification procedure is the same as that for basis sets.</p>
+</div>
+<div class="section" id="basis-set-gridfree">
+<h3>5.3.6. basis-set/gridfree<a class="headerlink" href="#basis-set-gridfree" title="Permalink to this headline">¶</a></h3>
+<p>Specifies the auxiliary basis sets used for grid-free method.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">5. Input files</a><ul>
+<li><a class="reference internal" href="#id2">5.1. Syntax</a></li>
+<li><a class="reference internal" href="#main">5.2. MAIN section</a><ul>
+<li><a class="reference internal" href="#step-control">5.2.1. step_control</a><ul>
+<li><a class="reference internal" href="#id3">5.2.1.1. Values</a></li>
+<li><a class="reference internal" href="#id4">5.2.1.2. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scf-start-guess">5.2.2. scf_start_guess</a><ul>
+<li><a class="reference internal" href="#id5">5.2.2.1. Values</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#molecule">5.3. MOLECULE section</a><ul>
+<li><a class="reference internal" href="#geometry-cartesian-unit">5.3.1. geometry/cartesian/unit</a><ul>
+<li><a class="reference internal" href="#id6">5.3.1.1. Values</a></li>
+<li><a class="reference internal" href="#id7">5.3.1.2. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#geometry-cartesian-input">5.3.2. geometry/cartesian/input</a><ul>
+<li><a class="reference internal" href="#id8">5.3.2.1. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#basis-set-orbital">5.3.3. basis-set/orbital</a><ul>
+<li><a class="reference internal" href="#id9">5.3.3.1. Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#basis-set-density-auxiliary">5.3.4. basis-set/density-auxiliary</a></li>
+<li><a class="reference internal" href="#basis-set-exchange-auxiliary">5.3.5. basis-set/exchange-auxiliary</a></li>
+<li><a class="reference internal" href="#basis-set-gridfree">5.3.6. basis-set/gridfree</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="quick_start_guide.html"
+                        title="previous chapter">4. Quick Start Guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="exec.html"
+                        title="next chapter">6. Execution Procedure</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/input.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="exec.html" title="6. Execution Procedure"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="quick_start_guide.html" title="4. Quick Start Guide"
+             >previous</a> |</li>
+        <li><a href="index.html">ProteinDF User&#39;s Manual 2014.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Toshiyuki HIRANO.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
