@@ -16,22 +16,22 @@ ProteinDFでは行列・ベクトルなどのサイズ・数ともに大きな�
 ProteinDFの実行に際し、あらかじめ計算に使用するディレクトリを作成します。
 作成すべきディレクトリは
 
-* fl_Input
-* fl_Table
 * fl_Work
 
-の3つです。
+です。
+
+.. note::
+
+  ``${PDF_HOME}/bin/pdf-setup`` を実行すると、計算に必要な環境を整えます。
+
+
+.. note::
 
 
 .. warning::
 
   ディスクの書き込みに失敗すると、プログラムが異常終了することがあります。
   特にMPI並列計算を行う場合は、すべてのノードから書き込みができることを確認してください。
-
-
-.. note::
-
-  ${PDF_HOME}/bin/pdfsetup を実行しても同様のことが行えます。
 
 
 入力ファイルの準備
@@ -51,17 +51,17 @@ ProteinDFの実行に際し、あらかじめ計算に使用するディレク�
         cut-value       = 1.0e-10
         scf-start-guess = harris
         max-iteration   = 100
-        method  = nsp
-        method/nsp/electron-number      = 40
-        method/nsp/occlevel     = [ 1 - 20 ]
-        orbital-independence-threshold  = 0.007
-        convergence/type        = density
-        convergence/threshold   = 1e-4
-        convergence/threshold-energy    = 1e-5
-        scf-acceleration        = damping
+        method  = rks
+        method/rks/electron-number              = 40
+        method/rks/occlevel                     = [ 1 - 20 ]
+        orbital-independence-threshold          = 0.007
+        convergence/type                        = density
+        convergence/threshold                   = 1e-4
+        convergence/threshold-energy            = 1e-5
+        scf-acceleration                        = damping
         scf-acceleration/damping/damping-factor = 0.65 
-        xc-potential    = b3lyp
-        scf-acceleration/damping/damping-type = density_matrix
+        xc-potential                            = b3lyp
+        scf-acceleration/damping/damping-type   = density_matrix
   
   >>>>MOLECULE
         geometry/cartesian/unit = angstrom

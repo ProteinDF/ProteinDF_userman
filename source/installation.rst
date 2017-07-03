@@ -97,8 +97,7 @@ ProteinDFパッケージをコピーしたディレクトリを指定します�
 
 .. code-block:: bash
 
-  PDF_HOME=/usr/local/ProteinDF
-  export PDF_HOME
+  export PDF_HOME=/usr/local/ProteinDF
 
 
 .. index:: OMP_NUM_THREADS
@@ -106,9 +105,8 @@ ProteinDFパッケージをコピーしたディレクトリを指定します�
 OMP_NUM_THREADS
 ^^^^^^^^^^^^^^^
 
-OpenMPによるスレッド並列を利用してProteinDFを実行する場合、
-環境変数OMP_NUM_THREADSが指定されると、
-OpenMP並列領域内における最大スレッド数を設定します。
+OpenMPにおける最大スレッド数を設定します。
+ビルド時にOpenMPを有効にする必要があります。
 
 
 .. index:: OMP_SCHEDULE
@@ -116,18 +114,9 @@ OpenMP並列領域内における最大スレッド数を設定します。
 OMP_SCHEDULE
 ^^^^^^^^^^^^
 
-OpenMPによるスレッド並列を利用してProteinDFを実行する場合、
-環境変数OMP_SCHEDULEにより、
-OpenMP並列領域内における並列スケジュールのタイプとチャンクサイズを設定できます。
+OpenMPにおける並列スケジュールのタイプとチャンクサイズを設定できます。
+ビルド時にOpenMPを有効にする必要があります。
 
-
-ランタイムライブラリのインストール
-----------------------------------
-
-x86ならびにx86_64環境用バイナリ版では、
-intel社製共有ライブラリが必要になる場合があります。
-インテル社ウェブページより再配布可能なライブラリをダウンロードし、インストールしてください。
-http://software.intel.com/en-us/articles/redistributable-libraries-for-the-intelr-c-and-visual-fortran-compiler-professional-editions-for-linux/
 
 
 ソースからのビルド
@@ -135,30 +124,32 @@ http://software.intel.com/en-us/articles/redistributable-libraries-for-the-intel
 
 .. index: configure
 
-configureの実行
+cmakeの実行
 ^^^^^^^^^^^^^^^
 
-
-tarballを展開したソースファイルには、configureスクリプトが用意されています。
-configureスクリプトを実行することによって
-環境に応じたMakefileが作成されます。
-
+ProteinDFではMakefileの作成にcmakeを利用しています。
+任意のディレクトリにて、ソースディレクトリを指定してcmakeを実行します。
+例えばtarballを展開したディレクトリの直下にbuildディレクトリを作成する場合、
+以下のように実行します。
 
 .. code-block:: bash
 
-  $ ./configure 2>&1 | tee out.configure
+  $ mkdir build
+  $ cd build
+  $ cmake ..
 
 
 .. note::
 
-  ソースコードリポジトリから開発ソースを取得した場合は、
-  autotoolsからconfigureスクリプトを作成する必要があります。
-  詳しくは[xxx]を参照してください。
+  cmakeは自動的にビルド環境を調査し、ライブラリの場所を設定します。
+  調査結果はcmakeの実行時に出力されます。
+  出力結果をファイルに保存して後に参照したい場合は、teeコマンドを利用して
+  ``$ cmake .. 2>&1 | tee out.cmake``
+  のように実行します。
 
 
-
-以下によく用いられるオプション/環境変数を示します。
-詳しくは configure --help をご覧ください。
+以下によく用いられる変数を示します。
+詳しくは ``cmake -L`` または ``cmake -LA`` をご覧ください。
 
 
 * ``--prefix=location``
@@ -253,19 +244,5 @@ makeの実行した後、実行ファイル・データを所定のパスにイ�
 
 環境によってはスクリプトが実行できない、ビルドできないなどの問題が発生するかもしれません。
 その場合は、各スクリプトの出力(上記の操作の場合、out.configure, out.make, out.make_install)をよくチェックしてください。
-
-
-開発コードからのビルド
-^^^^^^^^^^^^^^^^^^^^^^
-
-ソースコードリポジトリから取得した場合は、
-configureスクリプトをautotoolsを用いて作成する必要があります。
-automake, autoconf, libtoolがインストールされた環境で、
-同梱のbootstrap.shを実行してください。
-
-
-.. code-block: bash
-
-  $ ./bootstrap.sh
 
 
