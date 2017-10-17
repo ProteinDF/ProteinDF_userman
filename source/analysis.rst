@@ -34,14 +34,16 @@ ProteinDF計算結果の解析
    No.10     9  C (  41.623,   36.994,   33.649) p(    pz) (  3.39%;  60.00%)
 
 
-* pdf-pop
+* pdf-pop-mulliken
 
-形式電荷を出力します。
+output Mulliken population.
 
 .. code-block:: none
 
-  Usage: pdf-pop <MO_ID>
+  Usage: pdf-pop-mulliken <MO_ID>
 
+
+  
 
 * pdf-mo
 
